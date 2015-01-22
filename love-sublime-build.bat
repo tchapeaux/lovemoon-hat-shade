@@ -22,7 +22,7 @@ if exist "res" (
 
 if exist "data" (
     if not exist "gen_love\data" mkdir gen_love\data
-    xcopy .\res .\gen_love\data /E /Y
+    xcopy .\data .\gen_love\data /E /Y
 )
 
 cd .\src
