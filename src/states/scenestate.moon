@@ -7,7 +7,11 @@ class SceneState extends GameState
 
     draw: =>
         love.graphics.setBackgroundColor(0, 0, 0)
-        love.graphics.draw(@scene.spriteImg, 0, 0)
+
+        scale = math.min(wScr() / @scene.spriteImg\getWidth(), hScr() / @scene.spriteImg\getHeight())
+        offset_x = (wScr() / 2) - (@scene.spriteImg\getWidth() / 2) * scale
+        offset_y = hScr() - @scene.spriteImg\getHeight() * scale
+        love.graphics.draw(@scene.spriteImg, offset_x, offset_y, 0, scale, scale)
 
     mousepressed: (x, y, button) =>
         -- TODO: handle player 2 clicking on hitboxes or not
