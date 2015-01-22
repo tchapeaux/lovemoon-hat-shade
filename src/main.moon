@@ -35,3 +35,6 @@ love.mousepressed = (x, y, button) ->
 
 love.mousereleased = (x, y, button) ->
     current_state()\mousereleased(x, y, button)
+
+love.textinput = (char) ->
+    current_state()\textinput(char)

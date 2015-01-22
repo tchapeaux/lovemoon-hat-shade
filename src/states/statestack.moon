@@ -26,6 +26,8 @@ class GameState
 
     keyreleased: (key) =>
 
+    textinput: (char) =>
+
     mousepressed: (x, y, button) =>
 
     mousereleased: (x, y, button) =>
