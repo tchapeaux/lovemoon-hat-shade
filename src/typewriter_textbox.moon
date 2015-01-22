@@ -8,8 +8,6 @@ class TypewriterTextBox
         @autoTypeSpeed = 5  -- letter / s
         assert(@autoTypeSpeed > 0)
         @autoTypeCounter = 0
-        @allowUserType = true
-        @currentKeyDown = nil
 
     addLetter: (c) =>
         -- TODO: play typewriter sound
@@ -47,7 +45,3 @@ class TypewriterTextBox
 
     textinput: (char) =>
         @addLetter(char)
-
-    keyreleased: (key) =>
-        if @currentKeyDown == unicode
-            @currentKeyDown = nil
