@@ -29,21 +29,28 @@ class TypewriterTextBox
             @autoTypeCounter += dt
             if @autoTypeCounter > (1 / @autoTypeSpeed)
                 @autoTypeCounter -= (1 / @autoTypeSpeed)
-                @addLetter(@autoText\sub(1,1))
-                @autoText = @autoText\sub(2, -1)
+                @addLetter(@autoText\sub(1,1))  -- add first letter of autoText to Textbox
+                @autoText = @autoText\sub(2, -1) -- remove first letter from autoText
         else
             @autoTypeCounter = 0
 
     keypressed: (key) =>
         switch key
             when "backspace"
-                @removeLetter()
+                if #@autoText == 0
+                    @removeLetter()
             when "return"
-                @addLetter('\n')
-                @addLetter('>')
-                @addLetter(' ')
+                if #@autoText == 0
+                    @addLetter('\n')
+                    @addLetter('>')
+                    @addLetter(' ')
+                else
+                    @autoTypeSpeed *= 3
 
     keyreleased: (key) =>
+        switch key
+            when "return"
+                @autoTypeSpeed /= 3
 
 
     textinput: (char) =>
