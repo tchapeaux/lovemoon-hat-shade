@@ -5,7 +5,7 @@ class TypewriterTextBox
         @text = ""
         @font = love.graphics.newFont "res/font/special-elite/SpecialElite.ttf", 18
         @autoText = ""  -- text here will be automatically added to @text
-        @autoTypeSpeed = 5  -- letter / s
+        @autoTypeSpeed = 10  -- letter / s
         assert(@autoTypeSpeed > 0)
         @autoTypeCounter = 0
 

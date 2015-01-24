@@ -7,7 +7,7 @@ class SceneState extends GameState
     new: (scene) =>
         @scene = scene
         @textBox = TypewriterTextBox()
-        @textBox.autoText ..= "July 22 - Crime Scene 01\n> "
+        @textBox.autoText = scene.startupAutoText
 
     update: (dt) =>
         @textBox\update(dt)
@@ -16,10 +16,11 @@ class SceneState extends GameState
         love.graphics.setBackgroundColor(0, 0, 0)
 
         -- draw scene sprite
-        love.graphics.setColor(255, 255, 255)
         scale = math.min(wScr() / @scene.spriteImg\getWidth(), hScr() / @scene.spriteImg\getHeight())
         offset_x = (wScr() / 2) - (@scene.spriteImg\getWidth() / 2) * scale
         offset_y = hScr() - @scene.spriteImg\getHeight() * scale
+        love.graphics.setColor(255, 255, 255)
+        love.graphics.rectangle("fill", offset_x, offset_y, @scene.spriteImg\getWidth() * scale, @scene.spriteImg\getHeight() * scale)
         love.graphics.draw(@scene.spriteImg, offset_x, offset_y, 0, scale, scale)
 
         -- draw text box

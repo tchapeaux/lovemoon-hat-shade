@@ -3,16 +3,15 @@ export ^
 class Scene
     new: =>
         @spriteImg = nil
-        @hitboxes = {}
+        @clues = {}
+        @startupAutoText = nil
 
     setSprite: (path) =>
-        ok, returned = pcall -> love.graphics.newImage(path)
-        if ok
-            img = returned
-            @spriteImg = img
+        @spriteImg = love.graphics.newImage(path)
+
+    addClue: (clue) =>
+        assert clue.name != nil, "Attempt to add clue with nil name"
+        if @clues[clue.name] == nil
+            @clues[clue.name] = clue
         else
-            err = returned
-            if (string.find(err, "Does not exist."))
-                error("Scene sprite image '#{path}' not found.")
-            else
-                error(err)
+            error "Attempt to add clue '#{clue.name}' which already exists"
