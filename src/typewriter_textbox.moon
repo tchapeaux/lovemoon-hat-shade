@@ -37,11 +37,16 @@ class TypewriterTextBox
     keypressed: (key) =>
         switch key
             when "backspace"
-                @removeLetter()
+                if #@autoText == 0
+                    @removeLetter()
             when "return"
-                @addLetter('\n')
-                @addLetter('>')
-                @addLetter(' ')
+                if #@autoText == 0
+                    @addLetter('\n')
+                    @addLetter('>')
+                    @addLetter(' ')
+                else
+                    @autoTypeSpeed *= 5
 
     textinput: (char) =>
-        @addLetter(char)
+        if #@autoText == 0
+            @addLetter(char)
