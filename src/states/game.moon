@@ -10,7 +10,7 @@ class Game extends GameState
 
     loadData: =>
         -- Load the scenes in the right order
-        table.insert(@scenes, require "data/crimescenes/scene01")
+        table.insert(@scenes, require "data/crimescenes/scene02_se7enGreed")
 
     update: (dt) =>
         if #@scenes > 0
