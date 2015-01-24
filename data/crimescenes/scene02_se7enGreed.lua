@@ -16,17 +16,21 @@ Looking around the room, I ]]
 local clue_balance = Clue()
 clue_balance.name = "balance"
 clue_balance.highlightImg = love.graphics.newImage(sceneFolder .. "se7en-greed_bw-clue-balance.png")
+scene:addClue(clue_balance)
 
 local clue_pile_of_books = Clue()
 clue_pile_of_books.name = "pile_of_books"
 clue_pile_of_books.highlightImg = love.graphics.newImage(sceneFolder .. "se7en-greed_bw-clue-pile-of-books.png")
+scene:addClue(clue_pile_of_books)
 
 local clue_book = Clue()
 clue_book.name = "book"
 clue_book.highlightImg = love.graphics.newImage(sceneFolder .. "se7en-greed_bw-clue-book.png")
+scene:addClue(clue_book)
 
 local clue_greed = Clue()
 clue_greed.name = "greed"
 clue_greed.highlightImg = love.graphics.newImage(sceneFolder .. "se7en-greed_bw-clue-greed.png")
+scene:addClue(clue_greed)
 
 return scene

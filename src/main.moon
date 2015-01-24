@@ -1,5 +1,7 @@
 io.stdout\setvbuf'no'
 
+export DEBUG = true
+
 export statestack
 
 export wScr, hScr

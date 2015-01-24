@@ -6,6 +6,7 @@ class TypewriterTextBox
         @font = love.graphics.newFont "res/font/special-elite/SpecialElite.ttf", 18
         @autoText = ""  -- text here will be automatically added to @text
         @autoTypeSpeed = 10  -- letter / s
+        @autoTypeSpeedup = if not DEBUG then 3 else 10
         assert(@autoTypeSpeed > 0)
         @autoTypeCounter = 0
 
@@ -26,9 +27,10 @@ class TypewriterTextBox
 
     update: (dt) =>
         if #@autoText > 0
+            wordFrequency = 1 / @autoTypeSpeed
             @autoTypeCounter += dt
-            if @autoTypeCounter > (1 / @autoTypeSpeed)
-                @autoTypeCounter -= (1 / @autoTypeSpeed)
+            while @autoTypeCounter > wordFrequency
+                @autoTypeCounter -= wordFrequency
                 @addLetter(@autoText\sub(1,1))  -- add first letter of autoText to Textbox
                 @autoText = @autoText\sub(2, -1) -- remove first letter from autoText
         else
@@ -45,12 +47,12 @@ class TypewriterTextBox
                     @addLetter('>')
                     @addLetter(' ')
                 else
-                    @autoTypeSpeed *= 3
+                    @autoTypeSpeed *= @autoTypeSpeedup
 
     keyreleased: (key) =>
         switch key
             when "return"
-                @autoTypeSpeed /= 3
+                @autoTypeSpeed /= @autoTypeSpeedup
 
 
     textinput: (char) =>
