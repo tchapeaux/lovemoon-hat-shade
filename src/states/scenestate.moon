@@ -7,7 +7,7 @@ class SceneState extends GameState
     new: (scene) =>
         @scene = scene
         @textBox = TypewriterTextBox()
-        @textBox.autoText ..= "July 22 - Crime Scene 01\n> "
+        @textBox.autoText ..= "July 22 - Crime Scene 01\n> I entered the victim's apartment."
 
     update: (dt) =>
         @textBox\update(dt)
@@ -39,4 +39,4 @@ class SceneState extends GameState
         switch key
             when "escape"
                 love.event.quit()
-        @textBox\keyreleased(key)
+        -- @textBox\keyreleased(key)
