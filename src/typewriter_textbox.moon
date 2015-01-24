@@ -43,5 +43,8 @@ class TypewriterTextBox
                 @addLetter('>')
                 @addLetter(' ')
 
+    keyreleased: (key) =>
+
+
     textinput: (char) =>
         @addLetter(char)
