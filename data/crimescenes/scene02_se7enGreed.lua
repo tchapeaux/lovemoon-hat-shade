@@ -3,6 +3,7 @@ require "clue"
 
 local scene = Scene()
 
+<<<<<<< HEAD
 --*******************
 --       IMAGES
 --*******************
@@ -14,6 +15,11 @@ scene.spriteImg = love.graphics.newImage(sceneFolder .. "se7en-greed_bw.png")
 --*******************
 --       TEXT
 --*******************
+=======
+local sceneFolder = "res/scenes/scene02_se7enGreed/"
+
+scene.spriteImg = love.graphics.newImage(sceneFolder .. "se7en-greed_bw.png")
+>>>>>>> ec7c6a45290182262d25f67e06fb153ec71f47d4
 
 scene.startupAutoText = [[I never liked the smell of blood on new shoes.
 
@@ -21,10 +27,13 @@ This was clearly the work of a mad man, precise and meticulous. But no one can c
 
 Looking around the room, I ]]
 
+<<<<<<< HEAD
 --*******************
 --       CLUES
 --*******************
 
+=======
+>>>>>>> ec7c6a45290182262d25f67e06fb153ec71f47d4
 local clue_balance = Clue()
 clue_balance.name = "balance"
 clue_balance.highlightImg = love.graphics.newImage(sceneFolder .. "se7en-greed_bw-clue-balance.png")
