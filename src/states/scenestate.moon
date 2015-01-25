@@ -1,6 +1,7 @@
 export ^
 
 require "typewriter_textbox"
+require "timer"
 
 class SceneState extends GameState
     -- TODO: create two child state: PlayerOneSceneState and PlayerTwoSceneState
@@ -8,9 +9,15 @@ class SceneState extends GameState
         @scene = scene
         @textBox = TypewriterTextBox()
         @textBox.autoText = scene.startupAutoText
+        @timer = CigTimer()
 
     update: (dt) =>
         @textBox\update(dt)
+        if not @timer.started and #@textBox.autoText == 0 and not @timer.finished 
+            @timer\start(10)
+        
+        if not @timer.finished 
+            @timer\update(dt)
 
     draw: =>
         love.graphics.setBackgroundColor(0, 0, 0)
@@ -36,7 +43,11 @@ class SceneState extends GameState
 
         -- draw text box
         @textBox\draw(wScr(), hScr() - @scene.spriteImg\getHeight() * scale)
-
+        
+        -- draw timer
+        marginxcig = (20 * scale) + (5 * scale)
+        marginycig = 5 * scale
+        @timer\draw(offset_x + wScr() - marginxcig, offset_y + marginycig, scale)
     mousepressed: (x, y, button) =>
         -- TODO: handle player 2 clicking on hitboxes or not
 
