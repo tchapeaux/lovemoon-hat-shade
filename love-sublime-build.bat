@@ -1,4 +1,5 @@
 REM Suppose the `love` and `moon` executables are in the PATH
+@echo off
 
 if not exist gen_love mkdir gen_love
 

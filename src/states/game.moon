@@ -1,22 +1,19 @@
 export ^
 
 require "states/scenestate"
+require "scenario"
 
 class Game extends GameState
     new: =>
         super()
-        @scenes = {}
-        @loadData()
-
-    loadData: =>
-        -- Load the scenes in the right order
-        table.insert(@scenes, require "data/crimescenes/scene01")
+        @scenario = Scenario.getDefaultScenario()
 
     update: (dt) =>
-        if #@scenes > 0
-            nextScene = table.remove @scenes
+        nextScene = @scenario\nextScene()
+        if(nextScene) -- nextScene is nil if no more scene
             statestack\push SceneState(nextScene)
+            @currentScene = nextScene
 
     draw: =>
         love.graphics.setBackgroundColor(0, 0, 0)
-        love.graphics.draw(@current_scene.spriteImg, 0, 0)
+        love.graphics.draw(@currentScene.spriteImg, 0, 0)
