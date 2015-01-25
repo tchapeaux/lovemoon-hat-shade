@@ -16,12 +16,11 @@ class SceneState extends GameState
         if not @timer.started and #@textBox.autoText == 0 and not @timer.finished 
             @timer\start(10)
         
-        if not @timer.finished 
-            @timer\update(dt)
+        @timer\update(dt)
 
     draw: =>
         love.graphics.setBackgroundColor(0, 0, 0)
-
+        
         -- draw scene
         -- calculate modifiers
         scale = math.min(wScr() / @scene.spriteImg\getWidth(), hScr() / @scene.spriteImg\getHeight())

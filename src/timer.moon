@@ -4,10 +4,11 @@ class CigTimer
     new:() =>
         @started = false
         @finished = false
+        @fadinglvl = 0
     
     start:(nbsecs) =>
         @seconds = nbsecs
-        @originalTime = love.timer.getTime( )
+        @originalTime = love.timer.getTime()
         @started = true
         @finished = false
         
@@ -16,6 +17,15 @@ class CigTimer
         if @started
             currentTime = love.timer.getTime( )
             @elapsedTime = (currentTime - @originalTime)
+            fadingspeed = 300
+            @fadinglvl += dt * fadingspeed
+            if @fadinglvl >= 255
+                @fadinglvl = 255
+        if @finished
+            fadingspeed = 300
+            @fadinglvl -= dt * fadingspeed
+            if @fadinglvl <= 0
+                @fadinglvl = 0
 
     draw:(posx, posy, scale) =>
         if @started or @finished
@@ -34,17 +44,21 @@ class CigTimer
             -- current height
             cigh = (150 * scale) * (1.0 - percent)
             
-            love.graphics.setColor(128, 128, 128)
+            love.graphics.setColor(128, 128, 128, @fadinglvl)
             step = math.floor(ashesh * 1.5)
-            for i = 0, max_cigh - ashesh, step
+            
+            -- ashes
+            --for i = 0, max_cigh - ashesh, step
+            for i = 0, max_cigh - cigh, step
                 love.graphics.rectangle("fill", posx, posy + i, cigw, ashesh)
-            -- if percent > 0.7
-                -- love.graphics.setColor(255, 0, 0)
-            -- else
-            love.graphics.setColor(255, 255, 255)
-            love.graphics.rectangle("fill", posx, max_cigh - cigh + posy, cigw, cigh)
-            love.graphics.setColor(255, 0, 0)
-            love.graphics.rectangle("fill", posx, max_cigh - cigh + posy, cigw, burningh)
-            love.graphics.setColor(50, 50, 50)
+
+            -- cigarette and burning tip
+            if(percent != 1.0)
+                love.graphics.setColor(255, 255, 255, @fadinglvl)
+                love.graphics.rectangle("fill", posx, max_cigh - cigh + posy, cigw, cigh)
+                love.graphics.setColor(255, 0, 0, @fadinglvl)
+                love.graphics.rectangle("fill", posx, max_cigh - cigh + posy, cigw, burningh)
+            -- butt (such comment wow)
+            love.graphics.setColor(50, 50, 50, @fadinglvl)
             love.graphics.rectangle("fill", posx, max_cigh + posy, cigw, butth)
             
