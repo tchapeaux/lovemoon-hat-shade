@@ -2,6 +2,7 @@ export ^
 
 require "typewriter_textbox"
 require "timer"
+require "states/fadetoblack"
 
 class SceneState extends GameState
     -- TODO: create two child state: PlayerOneSceneState and PlayerTwoSceneState
@@ -64,10 +65,20 @@ class SceneState extends GameState
         -- TODO: handle player 1 writing
         switch key
             when "escape"
-                statestack\pop!
-                statestack\pop!
+                statestack\push FadeToBlack(1) -- TODO replace this with menu
         -- @textBox\keyreleased(key)
 
+class FinderSceneState extends SceneState
+    new: (scene, fulltext, clues_to_find) =>
+        super(scene)
+        @textBox.autoText = fulltext
+        @clues_to_find = clues_to_find -- contains timing info?
+
+    update: (dt) =>
+        super(dt)
+
+    draw: =>
+        super()
 
 class TyperSceneState extends SceneState
     new: (scene) =>
@@ -76,7 +87,7 @@ class TyperSceneState extends SceneState
         @highlighted_clues = {}
         @highlighted_textLength = {} -- length at which corresponding clue was highlighted
         @currentHighlight = 0 -- index of @highlighted_clues or 0
-        @highlightTime = 60 -- number of seconds a clue stays highlighted
+        @highlightTime = if DEBUG then 5 else 60 -- number of seconds a clue stays highlighted
 
         @numberOfClues = 3
         -- pick highlighted items
@@ -91,10 +102,17 @@ class TyperSceneState extends SceneState
     update: (dt) =>
         super(dt)
         if not @timer.started
-            if @currentHighlight > 0 and @scene.clues[@highlighted_clues[@currentHighlight]].isHighlighted
-                @scene.clues[@highlighted_clues[@currentHighlight]].isHighlighted = false
+            assert @currentHighlight >= 0 and @currentHighlight <= #@highlighted_clues, "Invalid @currentHighlight state #{@currentHighlight}"
 
-            if @next_clue_conditions() and @currentHighlight < #@highlighted_clues
+            if @currentHighlight == #@highlighted_clues
+                statestack\push FadeToBlack(1)
+
+            if @currentHighlight > 0
+                currentClue = @scene.clues[@highlighted_clues[@currentHighlight]]
+                if currentClue.isHighlighted
+                    currentClue.isHighlighted = false
+
+            if @next_clue_conditions()
                 @currentHighlight += 1
                 clueName = @highlighted_clues[@currentHighlight]
                 @timer\start(@highlightTime)

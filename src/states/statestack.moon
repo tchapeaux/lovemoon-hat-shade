@@ -11,8 +11,9 @@ class StateStack
     pop: =>
         table.remove @stack
 
-    peek: =>
-        @stack[#@stack]
+    peek: (offset = 0) =>
+        assert offset < #@stack, "offset would result in index < 0"
+        @stack[#@stack - offset]
 
 class GameState
     -- Interface-like abstract class for game states to push on a StateStace
