@@ -76,7 +76,7 @@ class TyperSceneState extends SceneState
         @highlighted_clues = {}
         @highlighted_textLength = {} -- length at which corresponding clue was highlighted
         @currentHighlight = 0 -- index of @highlighted_clues or 0
-        @highlightTime = 5 -- number of seconds a clue stays highlighted
+        @highlightTime = 60 -- number of seconds a clue stays highlighted
 
         @numberOfClues = 3
         -- pick highlighted items

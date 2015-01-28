@@ -50,6 +50,7 @@ class TypewriterTextBox
             when "backspace"
                 if #@autoText == 0
                     @removeLetter()
+                    @@playType()
             when "return"
                 if #@autoText == 0
                     @pullback()
