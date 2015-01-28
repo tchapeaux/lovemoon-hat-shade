@@ -10,7 +10,6 @@ class CharSprite
         @imgPath = nil
         @spriteImg = nil
         @spritename = "noname"
-    
 
 class Character
     next: () =>
@@ -18,10 +17,10 @@ class Character
         @designation = "Mr."
         @firstName = "No"
         @lastName = "Name"
-    
+
     completeName: () =>
         return "#{@designation} #{firstName} #{lastName}"
-    
+
     draw:() =>
         assert @charsprite != null, "Character #{completeName!} : no sprite"
         assert @charsprite.spriteImg != null, "Character : no sprite"
