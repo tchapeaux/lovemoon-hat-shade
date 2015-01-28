@@ -5,6 +5,7 @@ class CigTimer
         @started = false
         @finished = false
         @fadinglvl = 0
+        @elapsedTime = 0
 
     start:(nbsecs) =>
         @seconds = nbsecs
