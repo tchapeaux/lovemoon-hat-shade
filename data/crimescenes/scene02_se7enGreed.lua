@@ -16,9 +16,7 @@ scene.spriteImg = love.graphics.newImage(sceneFolder .. "se7en-greed_bw.png")
 --*******************
 
 scene.startupAutoText = [[I never liked the smell of blood on new shoes.
-
 This was clearly the work of a mad man, precise and meticulous. But no one can commit a murder without leaving a trace, and I cannot look at a crime scene long enough without finding a clue.
-
 Looking around the room, I ]]
 
 --*******************

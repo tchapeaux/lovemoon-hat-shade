@@ -5,7 +5,7 @@ class Clue
         @highlightImg = nil
         @hitBox = {} -- list of polygon vertices
         @name = nil
-        @isHighlighted
+        @isHighlighted = false
 
     draw: =>
         if @isHighlighted

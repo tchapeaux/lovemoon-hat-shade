@@ -6,6 +6,8 @@ class CigTimer
         @finished = false
         @fadinglvl = 0
         @elapsedTime = 0
+        @seconds = nil
+        @originalTime = nil
 
     start:(nbsecs) =>
         @seconds = nbsecs
@@ -27,6 +29,7 @@ class CigTimer
             @fadinglvl -= dt * fadingspeed
             if @fadinglvl <= 0
                 @fadinglvl = 0
+                @finished = false
 
     draw:(posx, posy, scale) =>
         if @started or @finished
