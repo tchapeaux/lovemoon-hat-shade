@@ -11,7 +11,7 @@ class Game extends GameState
     update: (dt) =>
         nextScene = @scenario\nextScene()
         if(nextScene) -- nextScene is nil if no more scene
-            statestack\push SceneState(nextScene)
+            statestack\push TyperSceneState(nextScene)
             @currentScene = nextScene
 
     draw: =>

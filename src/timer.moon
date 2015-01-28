@@ -6,38 +6,35 @@ class CigTimer
         @finished = false
         @fadinglvl = 0
         @elapsedTime = 0
-        @seconds = nil
-        @originalTime = nil
+        @duration = nil
 
     start:(nbsecs) =>
-        @seconds = nbsecs
-        @originalTime = love.timer.getTime()
+        @duration = nbsecs
+        @elapsedTime = 0
         @started = true
         @finished = false
 
     update:(dt) =>
-        -- TODO : take delta into consideration?
         if @started
-            currentTime = love.timer.getTime( )
-            @elapsedTime = (currentTime - @originalTime)
+            @elapsedTime += dt
+            if @elapsedTime > @duration
+                @finished = true
+
             fadingspeed = 300
-            @fadinglvl += dt * fadingspeed
-            if @fadinglvl >= 255
-                @fadinglvl = 255
-        if @finished
-            fadingspeed = 300
-            @fadinglvl -= dt * fadingspeed
-            if @fadinglvl <= 0
-                @fadinglvl = 0
-                @finished = false
+            if not @finished
+                @fadinglvl += dt * fadingspeed
+                if @fadinglvl >= 255
+                    @fadinglvl = 255
+            else
+                @fadinglvl -= dt * fadingspeed
+                if @fadinglvl <= 0
+                    @fadinglvl = 0
+                    @finished = false
+                    @started = false
 
     draw:(posx, posy, scale) =>
         if @started or @finished
-            percent = (@elapsedTime / @seconds)
-            if(@finished or percent >= 1.0)
-                @started = false
-                @finished = true
-                percent = 1
+            ratio = @elapsedTime / @duration
 
             max_cigh = (150 * scale)
             cigw = 20 * scale
@@ -46,7 +43,7 @@ class CigTimer
             burningh = max_cigh * 0.03
 
             -- current height
-            cigh = max_cigh * (1.0 - percent)
+            cigh = max_cigh * (1.0 - ratio)
 
             love.graphics.setColor(128, 128, 128, @fadinglvl)
             step = math.floor(ashesh * 1.5)
@@ -57,7 +54,7 @@ class CigTimer
                 love.graphics.rectangle("fill", posx, posy + i, cigw, ashesh)
 
             -- cigarette and burning tip
-            if(percent != 1.0)
+            if(ratio != 1.0)
                 love.graphics.setColor(255, 255, 255, @fadinglvl)
                 love.graphics.rectangle("fill", posx, max_cigh - cigh + posy, cigw, cigh)
                 love.graphics.setColor(255, 0, 0, @fadinglvl)
