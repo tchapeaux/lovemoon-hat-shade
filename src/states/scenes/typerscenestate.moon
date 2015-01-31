@@ -2,6 +2,7 @@ export ^
 
 require "states/scenes/scenestate"
 require "timer"
+require "states/transitions/fadetoblack"
 
 class TyperSceneState extends SceneState
     new: (scene) =>
@@ -12,7 +13,7 @@ class TyperSceneState extends SceneState
         @highlighted_textLengthStart = {} -- length at which corresponding clue was highlighted
         @highlighted_textLengthStop = {} -- length at which corresponding clue was de-highlighted
         @currentHighlight = 0 -- index of @highlighted_clues or 0
-        @highlightTime = if DEBUG then 5 else 60 -- number of seconds a clue stays highlighted
+        @highlightTime = if DEBUG then 1 else 60 -- number of seconds a clue stays highlighted
 
         @numberOfClues = 3
         -- pick highlighted items
@@ -26,16 +27,16 @@ class TyperSceneState extends SceneState
 
     update: (dt) =>
         super(dt)
-        @timer\update(dt)
         if not @timer.started
             assert @currentHighlight >= 0 and @currentHighlight <= #@highlighted_clues, "Invalid @currentHighlight state #{@currentHighlight} our of #{#@highlighted_clues}"
 
-            if @currentHighlight == #@highlighted_clues
+            if @currentHighlight == #@highlighted_clues and #@textBox.autoText == 0
                 statestack\push FadeToBlack(1) -- exit afterwards
 
             if @currentHighlight > 0
                 currentClue = @scene.clues[@highlighted_clues[@currentHighlight]]
                 if currentClue.isHighlighted
+                    @highlighted_textLengthStop[@currentHighlight] = #@textBox.text
                     currentClue.isHighlighted = false
 
             if @next_clue_conditions()
@@ -43,21 +44,16 @@ class TyperSceneState extends SceneState
                 clueName = @highlighted_clues[@currentHighlight]
                 @timer\start(@highlightTime)
                 @scene.clues[clueName].isHighlighted = true
-                @highlighted_textLength[@currentHighlight] = #@textBox.text
+                @highlighted_textLengthStart[@currentHighlight] = #@textBox.text
 
     draw: =>
         super()
-        scale, offset_x, offset_y = @getOffsetAndScale()
-        -- draw timer
-        marginxcig = (20 * scale) + (5 * scale)
-        marginycig = 5 * scale
-        @timer\draw(offset_x + wScr() - marginxcig, offset_y + marginycig, scale)
 
     next_clue_conditions: () =>
         -- return the next clue if the condition is met, nil otherwise
         lastTextLength = 0
         if @currentHighlight > 0
-            lastTextLength = @highlighted_textLength[@currentHighlight]
+            lastTextLength = @highlighted_textLengthStop[@currentHighlight]
         textSinceLastClue = @textBox.text\sub(lastTextLength + 1)
 
         textLengthSinceLastClue = #textSinceLastClue

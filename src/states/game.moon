@@ -13,12 +13,12 @@ class Game extends GameState
 
     update: (dt) =>
         if @currentSceneState and @currentSceneState.__class == TyperSceneState
-            -- TODO: get text and clue info from @currentSceneState
             prevScene = @currentSceneState
             text = prevScene.textBox.text
             clues = prevScene.highlighted_clues
-            lengths = prevScene.highlighted_textLengths
-            @currentSceneState = FinderSceneState(@currentSceneState.scene, text, clues)
+            start = prevScene.highlighted_textLengthStart
+            stop = prevScene.highlighted_textLengthStop
+            @currentSceneState = FinderSceneState(@currentSceneState.scene, text, clues, start, stop)
             statestack\push @currentSceneState
             statestack\push FadeFromBlack(1)
         else

@@ -1,15 +1,17 @@
 export ^
 
 require "typewriter_textbox"
-require "states/transitions/fadetoblack"
+require "timer"
 
 class SceneState extends GameState
     new: (scene) =>
         @scene = scene
         @textBox = TypewriterTextBox()
+        @timer = Timer()
 
     update: (dt) =>
         @textBox\update(dt)
+        @timer\update(dt)
 
     draw: =>
         love.graphics.setBackgroundColor(0, 0, 0)
@@ -33,6 +35,11 @@ class SceneState extends GameState
 
         -- draw text box
         @textBox\draw(wScr(), hScr() - @scene.spriteImg\getHeight() * scale)
+
+        -- draw timer
+        marginxcig = (20 * scale) + (5 * scale)
+        marginycig = 5 * scale
+        @timer\draw(offset_x + wScr() - marginxcig, offset_y + marginycig, scale)
 
     getOffsetAndScale: =>
         -- based on scene sprite size
