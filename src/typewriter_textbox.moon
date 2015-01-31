@@ -13,11 +13,13 @@ class TypewriterTextBox
 
     addLetter: (c) =>
         @text ..= c
-        @@playType()
+        soundmanager\playAnyType()
+        -- @@playType()
 
     pullback: () =>
         @text ..= "\n> "
-        @@playPullBack()
+        soundmanager\playAnyPullBack()
+        -- @@playPullBack()
 
     removeLetter: =>
         if #@text > 0
@@ -50,7 +52,8 @@ class TypewriterTextBox
             when "backspace"
                 if #@autoText == 0
                     @removeLetter()
-                    @@playType()
+                    soundmanager\playAnyType()
+                    -- @@playType()
             when "return"
                 if #@autoText == 0
                     @pullback()
@@ -69,37 +72,37 @@ class TypewriterTextBox
 
     -- the following are class methods and attribute to play sounds
 
-    @playOneOf: (soundArray) =>
-        index = math.random(#soundArray)
-        if soundArray[index]\isPlaying()
-            soundArray[index]\rewind()
-        else
-            soundArray[index]\play()
+    -- @playOneOf: (soundArray) =>
+        -- index = math.random(#soundArray)
+        -- if soundArray[index]\isPlaying()
+            -- soundArray[index]\rewind()
+        -- else
+            -- soundArray[index]\play()
 
 
-    @typeSounds: {
-        love.audio.newSource("res/sfx/typewriter/edited/type01.ogg", "static")
-        love.audio.newSource("res/sfx/typewriter/edited/type02.ogg", "static")
-        love.audio.newSource("res/sfx/typewriter/edited/type03.ogg", "static")
-        love.audio.newSource("res/sfx/typewriter/edited/type04.ogg", "static")
-        love.audio.newSource("res/sfx/typewriter/edited/type05.ogg", "static")
-    }
+    -- @typeSounds: {
+        -- love.audio.newSource("res/sfx/typewriter/edited/type01.ogg", "static")
+        -- love.audio.newSource("res/sfx/typewriter/edited/type02.ogg", "static")
+        -- love.audio.newSource("res/sfx/typewriter/edited/type03.ogg", "static")
+        -- love.audio.newSource("res/sfx/typewriter/edited/type04.ogg", "static")
+        -- love.audio.newSource("res/sfx/typewriter/edited/type05.ogg", "static")
+    -- }
 
-    @playType: =>
-        @playOneOf(@typeSounds)
+    -- @playType: =>
+        -- @playOneOf(@typeSounds)
 
-    @pullbackSounds: {
-        love.audio.newSource("res/sfx/typewriter/edited/pullback01.ogg", "static")
-        love.audio.newSource("res/sfx/typewriter/edited/pullback02.ogg", "static")
-    }
+    -- @pullbackSounds: {
+        -- love.audio.newSource("res/sfx/typewriter/edited/pullback01.ogg", "static")
+        -- love.audio.newSource("res/sfx/typewriter/edited/pullback02.ogg", "static")
+    -- }
 
-    @playPullBack: =>
-        @playOneOf(@pullbackSounds)
+    -- @playPullBack: =>
+        -- @playOneOf(@pullbackSounds)
 
-    @bellSounds: {
-        love.audio.newSource("res/sfx/typewriter/edited/bell01.ogg", "static")
-        love.audio.newSource("res/sfx/typewriter/edited/bell02.ogg", "static")
-    }
+    -- @bellSounds: {
+        -- love.audio.newSource("res/sfx/typewriter/edited/bell01.ogg", "static")
+        -- love.audio.newSource("res/sfx/typewriter/edited/bell02.ogg", "static")
+    -- }
 
-    @playBell: =>
-        @playOneOf(@bellSounds)
+    -- @playBell: =>
+        -- @playOneOf(@bellSounds)

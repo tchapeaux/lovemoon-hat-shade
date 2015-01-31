@@ -45,12 +45,33 @@ class TyperSceneState extends SceneState
                 @timer\start(@highlightTime)
                 @scene.clues[clueName].isHighlighted = true
                 @highlighted_textLengthStart[@currentHighlight] = #@textBox.text
-
+          
+    textinput: (char) =>
+        super(char)
+        -- if timer on, forbid some special words
+        if @timer.started
+            clueName = @highlighted_clues[@currentHighlight]
+            forbidden = @scene.clues[clueName].forbiddenWords
+            -- simple method  : check if the word was just written
+            for i=1, #forbidden
+                word = forbidden[i]
+                print word
+                lowerendstr = string.lower(@textBox.text\sub(#(@textBox.text) - #word +1))
+                print lowerendstr
+                if lowerendstr == word
+                    @textBox.text = @textBox.text\sub(0, #(@textBox.text) - #word) .. "*hic*"
+                --index = string.find(textSinceLastClue, 
+        
     draw: =>
         super()
 
     next_clue_conditions: () =>
         -- return the next clue if the condition is met, nil otherwise
+        
+        -- return if still some autotext
+        if #@textBox.autoText > 0
+            return nil
+        -- where should lastTextLength be handled?
         lastTextLength = 0
         if @currentHighlight > 0
             lastTextLength = @highlighted_textLengthStop[@currentHighlight]
@@ -69,5 +90,4 @@ class TyperSceneState extends SceneState
         sentenceCountLimit = 5
 
         -- print textLengthSinceLastClue, paragraphCountSinceLastClue, sentenceCountSinceLastClue
-
         return textLengthSinceLastClue > textLengthLimit or paragraphCountSinceLastClue > paragraphCountLimit or sentenceCountSinceLastClue > sentenceCountLimit

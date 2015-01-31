@@ -3,10 +3,10 @@
 -- the charsprite basic info should be in the data folder
 
 class CharSprite
-    @@sexenum = {"Man", "Woman"}
+    @@sexenum = {MAN => "Man", WOMAN => "Woman"}
     next: () =>
         @age = 30
-        @sex = 1
+        @sex = @@sexenum.MAN
         @imgPath = nil
         @spriteImg = nil
         @spritename = "noname"

@@ -1,8 +1,9 @@
 io.stdout\setvbuf'no'
 
-export DEBUG = true
+export DEBUG = false
 
 export statestack
+export soundmanager
 
 export wScr, hScr
 wScr, hScr = love.window.getWidth, love.window.getHeight
@@ -14,8 +15,10 @@ export lua_mod = (x, m) ->
 love.load = ->
     require "states/statestack"
     require "states/mainmenu"
+    require "sound_manager"
     statestack = StateStack()
     statestack\push(MainMenu())
+    soundmanager = SoundManager()
 
 current_state = ->
     statestack\peek()
