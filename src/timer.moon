@@ -1,9 +1,9 @@
 export ^
 
-class CigTimer
+class Timer
     new:() =>
         @started = false
-        @finished = false
+        @fadeOut = false
         @fadinglvl = 0
         @elapsedTime = 0
         @duration = nil
@@ -12,16 +12,17 @@ class CigTimer
         @duration = nbsecs
         @elapsedTime = 0
         @started = true
-        @finished = false
+        @fadeOut = false
 
     update:(dt) =>
         if @started
             @elapsedTime += dt
             if @elapsedTime > @duration
-                @finished = true
+                @fadeOut = true
 
             fadingspeed = 300
-            if not @finished
+            if not @fadeOut
+                -- fade in
                 @fadinglvl += dt * fadingspeed
                 if @fadinglvl >= 255
                     @fadinglvl = 255
@@ -29,11 +30,14 @@ class CigTimer
                 @fadinglvl -= dt * fadingspeed
                 if @fadinglvl <= 0
                     @fadinglvl = 0
-                    @finished = false
+                    @fadeOut = false
                     @started = false
 
-    draw:(posx, posy, scale) =>
-        if @started or @finished
+    draw: (posx, posy, scale) =>
+
+class CigTimer extends Timer
+    draw: (posx, posy, scale) =>
+        if @started or @fadeOut
             ratio = @elapsedTime / @duration
 
             max_cigh = (150 * scale)
