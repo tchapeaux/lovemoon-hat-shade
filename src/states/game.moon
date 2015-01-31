@@ -1,7 +1,8 @@
 export ^
 
-require "states/scenestate"
-require "states/fadefromblack"
+require "states/scenes/typerscenestate"
+require "states/scenes/finderscenestate"
+require "states/transitions/fadefromblack"
 require "scenario"
 
 class Game extends GameState
