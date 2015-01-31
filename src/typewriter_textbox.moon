@@ -4,7 +4,7 @@ class TypewriterTextBox
 
     new: () =>
         @text = ""
-        @font = love.graphics.newFont "res/font/special-elite/SpecialElite.ttf", 18
+        @font = love.graphics.newFont "res/font/special-elite/SpecialElite.ttf", 36
         @autoText = ""  -- text here will be automatically added to @text
         @autoTypeSpeed = 10  -- letter / s
         @autoTypeSpeedup = if not DEBUG then 3 else 10
