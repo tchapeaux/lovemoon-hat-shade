@@ -3,6 +3,7 @@ export ^
 require "states/scenes/scenestate"
 require "timer"
 require "states/transitions/fadetoblack"
+require "states/transitions/fadefrom"
 
 class FinderSceneState extends SceneState
     new: (scene, fulltext, @clues_to_find, @startIndices, @stopIndices) =>
@@ -12,6 +13,8 @@ class FinderSceneState extends SceneState
         @clueToFind = 1 -- index of @clues_to_find
         @clueAtPointer = nil -- name of the clue
         @clueSelected = nil -- name of the clue
+        @cluesFound = {}
+        @foundHighlights = {}
 
         -- sanity checks
         assert #@clues_to_find == #@startIndices and #@startIndices == #@stopIndices,
@@ -28,8 +31,11 @@ class FinderSceneState extends SceneState
                 @timer\start(duration)
             elseif @timer.started and #@textBox.text >= @stopIndices[@clueToFind]
                 -- stop timer
-                if @clues_to_find[@clueToFind] ~= @clueSelected
-                    @lost_clue()
+                if @clues_to_find[@clueToFind] == @clueSelected
+                    @found_clue(@clues_to_find[@clueToFind])
+                else
+                    @lost_clue(@clues_to_find[@clueToFind])
+                @clueSelected = nil
                 @clueToFind += 1
             else
                 -- highlight clue under cursor
@@ -48,16 +54,35 @@ class FinderSceneState extends SceneState
         else
             statestack\push FadeToBlack(1)
 
-    lost_clue: =>
-        print "there, there."
+    found_clue: (name) =>
+        clue = @scene.clues[name]
+        table.insert(@cluesFound, name)
+        -- draw the found clue in green
+        img = clue.highlightImg
+        imgdata = img\getData()
+        foundImgData = love.image.newImageData(img\getWidth(), img\getHeight())
+        foundImgData\paste(imgdata, 0, 0, 0, 0, img\getWidth(), img\getHeight())
+        foundImgData\mapPixel( (x, y, r, g, b, a) -> g, r, b, a )
+        table.insert @foundHighlights, love.graphics.newImage(foundImgData)
+
+    lost_clue: (clue) =>
+        statestack\push FadeFrom {255, 0, 0}, 0.3
 
     draw_clue_layer: =>
         super()
+        for img in *@foundHighlights
+            love.graphics.draw(img, 0, 0)
+
         if @clueAtPointer
+            love.graphics.setColor(255, 255, 255, 100)
             love.graphics.draw(@scene.clues[@clueAtPointer].highlightImg, 0, 0)
+            love.graphics.setColor(255, 255, 255, 255)
+
+        if @clueSelected
+            love.graphics.setColor(255, 255, 255, 255)
+            love.graphics.draw(@scene.clues[@clueSelected].highlightImg, 0, 0)
 
     mousepressed: (x, y, button) =>
         switch button
             when "l"
-                print @clueAtPointer
                 @clueSelected = @clueAtPointer
