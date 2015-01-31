@@ -12,6 +12,7 @@ class CharSprite
         @spritename = "noname"
 
 class Character
+    @@allCharacters = {}
     next: () =>
         @charsprite = nil
         @designation = "Mr."

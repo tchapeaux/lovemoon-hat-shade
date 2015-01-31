@@ -13,7 +13,7 @@ class TyperSceneState extends SceneState
         @highlighted_textLengthStart = {} -- length at which corresponding clue was highlighted
         @highlighted_textLengthStop = {} -- length at which corresponding clue was de-highlighted
         @currentHighlight = 0 -- index of @highlighted_clues or 0
-        @highlightTime = if DEBUG then 1 else 60 -- number of seconds a clue stays highlighted
+        @highlightTime = if DEBUG then 10 else 60 -- number of seconds a clue stays highlighted
 
         @numberOfClues = 3
         -- pick highlighted items
@@ -55,9 +55,7 @@ class TyperSceneState extends SceneState
             -- simple method  : check if the word was just written
             for i=1, #forbidden
                 word = forbidden[i]
-                print word
                 lowerendstr = string.lower(@textBox.text\sub(#(@textBox.text) - #word +1))
-                print lowerendstr
                 if lowerendstr == word
                     @textBox.text = @textBox.text\sub(0, #(@textBox.text) - #word) .. "*hic*"
                     soundmanager\playAnyBubble()

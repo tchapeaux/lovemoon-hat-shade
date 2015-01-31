@@ -32,11 +32,13 @@ scene:addClue(clue_balance)
 local clue_pile_of_books = Clue()
 clue_pile_of_books.name = "pile_of_books"
 clue_pile_of_books.highlightImg = love.graphics.newImage(sceneFolder .. "se7en-greed_bw-clue-pile-of-books.png")
+clue_pile_of_books.forbiddenWords = {"pile of books", "books", "blood"}
 scene:addClue(clue_pile_of_books)
 
 local clue_book = Clue()
 clue_book.name = "book"
 clue_book.highlightImg = love.graphics.newImage(sceneFolder .. "se7en-greed_bw-clue-book.png")
+clue_book.forbiddenWords = {"book", "table"}
 scene:addClue(clue_book)
 
 local clue_greed = Clue()

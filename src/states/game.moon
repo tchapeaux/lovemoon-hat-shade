@@ -1,5 +1,6 @@
 export ^
 
+require "states/scenes/dialogstate"
 require "states/scenes/typerscenestate"
 require "states/scenes/finderscenestate"
 require "states/transitions/fadefromblack"
@@ -24,7 +25,10 @@ class Game extends GameState
         else
             nextScene = @scenario\nextScene()
             if nextScene -- nextScene is nil if no more scene
-                @currentSceneState = TyperSceneState(nextScene)
+                if(nextScene.__class == Dialog)
+                    @currentSceneState = DialogState(nextScene)
+                else if(nextScene.__class == Scene)
+                    @currentSceneState = TyperSceneState(nextScene)
                 statestack\push @currentSceneState
                 statestack\push FadeFromBlack(1)
             else

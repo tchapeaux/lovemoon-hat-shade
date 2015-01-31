@@ -23,7 +23,9 @@ class Scenario
 
     getDefaultScenario:() ->
         scenario = Scenario()
+        dialog1 = require "data/dialogs/dialog02_se7enGreed"
         scene1 = require "data/crimescenes/scene02_se7enGreed"
+        scenario\pushScene (dialog1)
         scenario\pushScene (scene1)
         if(#(scene1.clues) > 1)
             @max_clues += #(scene1.clues) -1

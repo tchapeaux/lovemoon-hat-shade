@@ -1,6 +1,6 @@
 io.stdout\setvbuf'no'
 
-export DEBUG = false
+export DEBUG = true
 
 export statestack
 export soundmanager
