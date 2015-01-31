@@ -24,7 +24,7 @@ class FinderSceneState extends SceneState
         if @clueToFind <= #@clues_to_find
             if not @timer.started and #@textBox.text >= @startIndices[@clueToFind]
                 -- start timer
-                duration = @textBox.autoTypeSpeed * (@stopIndices[@clueToFind] - @startIndices[@clueToFind])
+                duration = (@stopIndices[@clueToFind] - @startIndices[@clueToFind]) / @textBox.autoTypeSpeed
                 @timer\start(duration)
             elseif @timer.started and #@textBox.text >= @stopIndices[@clueToFind]
                 -- stop timer
