@@ -37,24 +37,25 @@ class FinderSceneState extends SceneState
                 mx, my = love.mouse.getPosition()
                 img_x = math.floor((mx - offset_x) / scale)
                 img_y = math.floor((my - offset_y) / scale)
-                clue = nil
-                -- clue = @scene\getClueAt(img_x, img_y)
+                clue = @scene\getClueAt(img_x, img_y)
                 if clue
-                    clueAtPointer = clue.name
+                    -- print clue.name
+                    @clueAtPointer = clue.name
                 else
-                    clueAtPointer = nil
+                    @clueAtPointer = nil
         else
             statestack\push FadeToBlack(1)
 
     lost_clue: =>
         print "there, there."
 
-    draw: =>
+    draw_clue_layer: =>
         super()
-        if clueAtPointer
-            love.graphics.draw(@scene.clues[clueAtPointer].highlightImg, 0, 0)
+        if @clueAtPointer
+            love.graphics.draw(@scene.clues[@clueAtPointer].highlightImg, 0, 0)
 
     mousepressed: (x, y, button) =>
         switch button
             when "l"
                 print @clueAtPointer
+                @clueSelected = @clueAtPointer
