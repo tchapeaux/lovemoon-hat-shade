@@ -60,6 +60,7 @@ class TyperSceneState extends SceneState
                 print lowerendstr
                 if lowerendstr == word
                     @textBox.text = @textBox.text\sub(0, #(@textBox.text) - #word) .. "*hic*"
+                    soundmanager\playAnyBubble()
                 --index = string.find(textSinceLastClue, 
         
     draw: =>

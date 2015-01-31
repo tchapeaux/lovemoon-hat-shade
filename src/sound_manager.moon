@@ -17,7 +17,13 @@ class SoundManager
         love.audio.newSource("res/sfx/typewriter/edited/bell01.ogg", "static")
         love.audio.newSource("res/sfx/typewriter/edited/bell02.ogg", "static")
     }
-        
+    
+    -- censored word sound
+    @bubbleSounds: {
+        love.audio.newSource("res/sfx/bubbles/192501__murraysortz__bubbles-quick.ogg", "static")
+        love.audio.newSource("res/sfx/bubbles/261597__kwahmah-02__bubbles2.ogg", "static")
+        love.audio.newSource("res/sfx/bubbles/104946__glaneur-de-sons__bubble-7.ogg", "static")
+    }
 
     @playOneOf: (soundArray) =>
         index = math.random(#soundArray)
@@ -32,7 +38,10 @@ class SoundManager
         
         
     playAnyBell:()=>
-        @@playOneOf(@bellSounds)
+        @@playOneOf(@@bellSounds)
         
     playAnyPullBack:()=>
-        @@playOneOf(@pullbackSounds)
+        @@playOneOf(@@pullbackSounds)
+    
+    playAnyBubble:()=>
+        @@playOneOf(@@bubbleSounds)
