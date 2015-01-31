@@ -37,10 +37,12 @@ class FinderSceneState extends SceneState
                 mx, my = love.mouse.getPosition()
                 img_x = math.floor((mx - offset_x) / scale)
                 img_y = math.floor((my - offset_y) / scale)
-                clue = @scene\getClueAt(img_x, img_y)
-                if clue
-                    -- print clue.name
-                    @clueAtPointer = clue.name
+                if (img_x >= 0 and img_y >= 0 and img_x <= @scene.spriteImg\getWidth() and img_y <= @scene.spriteImg\getHeight() )
+                    clue = @scene\getClueAt(img_x, img_y)
+                    if clue
+                        @clueAtPointer = clue.name
+                    else
+                        @clueAtPointer = nil
                 else
                     @clueAtPointer = nil
         else
