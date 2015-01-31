@@ -71,7 +71,10 @@ class TypewriterTextBox
 
     @playOneOf: (soundArray) =>
         index = math.random(#soundArray)
-        soundArray[index]\play()
+        if soundArray[index]\isPlaying()
+            soundArray[index]\rewind()
+        else
+            soundArray[index]\play()
 
 
     @typeSounds: {
