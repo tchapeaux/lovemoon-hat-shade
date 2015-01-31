@@ -24,12 +24,18 @@ class SceneState extends GameState
         love.graphics.setColor(255, 255, 255)
         love.graphics.rectangle("fill", 0, 0, @scene.spriteImg\getWidth(), @scene.spriteImg\getHeight())
 
+        @draw_below() -- for subclasses
+
         -- clue highlight
         for name, clue in pairs(@scene.clues)
             clue\draw()
 
+        @draw_clue_layer() -- for subclasses
+
         -- scene sprite
         love.graphics.draw(@scene.spriteImg, 0, 0)
+
+        @draw_sprite_layer() -- for subclasses
 
         love.graphics.reset()
 
@@ -40,6 +46,11 @@ class SceneState extends GameState
         marginxcig = (20 * scale) + (5 * scale)
         marginycig = 5 * scale
         @timer\draw(offset_x + wScr() - marginxcig, offset_y + marginycig, scale)
+
+    -- for subclasses
+    draw_below: =>
+    draw_clue_layer: =>
+    draw_sprite_layer: =>
 
     getOffsetAndScale: =>
         -- based on scene sprite size
