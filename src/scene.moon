@@ -17,8 +17,8 @@ class Scene
             error "Attempt to add clue '#{clue.name}' which already exists"
 
     getClueAt: (x, y) =>
-        for clue in *@clues
-            imgdata = @highlightImg\getData()
+        for name, clue in pairs(@clues)
+            imgdata = clue.highlightImg\getData()
             r, g, b, a = imgdata\getPixel(x, y)
             if r + g + b + a > 0
                 return clue
