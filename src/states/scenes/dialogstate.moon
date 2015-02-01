@@ -62,7 +62,7 @@ class DialogState extends GameState
     nextText:() =>
         
         if(@currentindex == #@dialog.dialogBits)
-            statestack\pop()
+            statestack\push FadeToBlack(1)
             return
         @currentindex += 1
         @textBox.text = ""

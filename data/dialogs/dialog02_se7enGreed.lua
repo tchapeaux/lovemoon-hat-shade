@@ -45,7 +45,7 @@ dialog.spriteImg = love.graphics.newImage(imgFolder .. "décor1b.png")
 --*******************
 -- the textes and the character name are defined by in a DialogBit
 dialog.dialogBits = {
-    DialogBit(cop_Character, "\n7:56\nEntrance of Vic Hatshade's Office", 5, "center"),
+    DialogBit(nil, "\n7:56\nEntrance of Vic Hatshade's Office", 5, "center"),
     DialogBit(nil, "Jim Norrington :\nIt's my first day as the assistant of the famous detective Vic Hatshade!\nI wonder what will be my first case...", 20, "left"),
     DialogBit(nil, "Voice :\nThis administrative bullshit is the reason why I will never join your faggot unit!", 30),
     DialogBit(nil, "Woman :\nWell, I'm sorry detective but we like to treat our cases the proper way.", 20),
