@@ -62,7 +62,10 @@ class DialogState extends GameState
     nextText:() =>
         nextBit = @dialog\getNextBit()
         if nextBit == nil
-            return nil
+            statestack\push FadeToBlack(1)
+            return
+
+        @currentindex += 1
 
         @textBox.text = ""
         @textBox.autoText = nextBit.text
