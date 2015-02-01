@@ -1,11 +1,17 @@
 export ^
 
 class DialogBit
-    new:(charName, text) =>
-        @characterName = charName
+    new:(char, text, speed) =>
+        @character = char
         @text = text
+        @speed = speed
         
-
+    new:(char, text, speed, align) =>
+        @character = char
+        @text = text
+        @speed = speed
+        @align = align
+        
 class Dialog
     new:() =>
         @spriteImg = nil -- background scene

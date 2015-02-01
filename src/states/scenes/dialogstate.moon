@@ -1,21 +1,17 @@
 export ^
 
-require "typewriter_textbox"
+require "simple_textbox"
 
 class DialogState extends GameState
     new: (dialog) =>
         @dialog = dialog
-        @textBox = TypewriterTextBox()
-        print #@dialog.dialogBits
-        @currentTextLenght = #@dialog.dialogBits[1].text
-        @textBox.autoText = @dialog.dialogBits[1].text
-        @currentindex = 1
+        @textBox = SimpleTextBox()
+        @currentindex = 0
+        @currentcharacter = nil
 
-    update: (dt) =>
-        if #@textBox.autoText == 0
-            @currentindex += 1
-            @textBox.autoText = "\n" .. @dialog.dialogBits[@currentindex].text
-    
+    update: (dt) =>    
+        if(@currentindex == 0)
+            @nextText()
         @textBox\update(dt)
 
     draw: =>
@@ -36,6 +32,10 @@ class DialogState extends GameState
 
         -- draw text box
         @textBox\draw(wScr(), hScr() - @dialog.spriteImg\getHeight() * scale)
+        
+        -- draw  character if exists
+        if(@currentcharacter)
+            @currentcharacter\draw(@dialog.spriteImg\getHeight() * scale)
 
     getOffsetAndScale: =>
         -- based on scene sprite size
@@ -47,8 +47,29 @@ class DialogState extends GameState
     textinput: (char) =>
         --@textBox\textinput(char)
 
-    keypressed: (key) =>
+    keypressed: (key) =>           
         --@textBox\keypressed(key)
 
     keyreleased: (key) =>
-        -- TODO: pass complete dialog
+        if key == "return"
+            if #@textBox.autoText == 0
+                @nextText()
+                return
+
+        @textBox\keyreleased(key)
+    
+    -- attempt to get the next dialog, if none exit scene
+    nextText:() =>
+        
+        if(@currentindex == #@dialog.dialogBits)
+            statestack\pop()
+            return
+        @currentindex += 1
+        @textBox.text = ""
+        @textBox.autoText = @dialog.dialogBits[@currentindex].text
+        @textBox.autoTypeSpeed = @dialog.dialogBits[@currentindex].speed
+        @currentcharacter = @dialog.dialogBits[@currentindex].character
+        
+        if(@dialog.dialogBits[@currentindex].align)
+            @textBox.align = @dialog.dialogBits[@currentindex].align
+            
