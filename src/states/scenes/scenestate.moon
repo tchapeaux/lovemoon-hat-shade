@@ -69,7 +69,6 @@ class SceneState extends GameState
         @textBox\keypressed(key)
 
     keyreleased: (key) =>
-        -- TODO: handle player 1 writing
         switch key
             when "escape"
-                statestack\push FadeToBlack(1) -- TODO replace this with menu
+                statestack\push InGameMenu()

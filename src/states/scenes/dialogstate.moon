@@ -1,6 +1,7 @@
 export ^
 
 require "simple_textbox"
+require "states/menus/ingamemenu"
 
 class DialogState extends GameState
     new: (dialog) =>
@@ -51,6 +52,8 @@ class DialogState extends GameState
         --@textBox\keypressed(key)
 
     keyreleased: (key) =>
+        if key == "escape"
+            statestack\push(InGameMenu())
         if key == "return"
             if #@textBox.autoText == 0
                 @nextText()
