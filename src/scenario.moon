@@ -21,7 +21,7 @@ class Scenario
     pushScene:(scene) =>
         table.insert @all_scenes, scene
 
-    getDefaultScenario:() ->
+    @getDefaultScenario:() ->
         scenario = Scenario()
         dialog1 = require "data/dialogs/dialog02_se7enGreed"
         scene1 = require "data/crimescenes/scene02_se7enGreed"
