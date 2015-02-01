@@ -57,12 +57,12 @@ class DialogState extends GameState
 
     -- attempt to get the next dialog, if none exit scene
     nextText:() =>
-        nextBit = @dialog\getNextBit()
-        if nextBit == nil
+        if @currentindex == #@dialog.dialogBits
             statestack\push FadeToBlack(1)
             return
 
         @currentindex += 1
+        nextBit = @dialog.dialogBits[@currentindex]
 
         @textBox.text = ""
         @textBox.autoText = nextBit.text
