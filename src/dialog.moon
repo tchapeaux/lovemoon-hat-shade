@@ -1,16 +1,18 @@
 export ^
 
 class DialogBit
-    new:(char, text, speed) =>
+    new:(poptype, char, text, speed) =>
         @character = char
         @text = text
         @speed = speed
+        @popType = poptype
         
-    new:(char, text, speed, align) =>
+    new:(poptype, char, text, speed, align) =>
         @character = char
         @text = text
         @speed = speed
         @align = align
+        @popType = poptype
         
 class Dialog
     new:() =>

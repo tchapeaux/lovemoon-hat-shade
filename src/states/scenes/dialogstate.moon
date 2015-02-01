@@ -1,6 +1,7 @@
 export ^
 
 require "simple_textbox"
+require "states/transitions/slapscreen"
 
 class DialogState extends GameState
     new: (dialog) =>
@@ -55,18 +56,32 @@ class DialogState extends GameState
             if #@textBox.autoText == 0
                 @nextText()
                 return
+        else if key == "escape"
+            @currentindex == #@dialog.dialogBits
 
         @textBox\keyreleased(key)
     
     -- attempt to get the next dialog, if none exit scene
     nextText:() =>
         
-        if(@currentindex == #@dialog.dialogBits)
+        if(@currentindex >= #@dialog.dialogBits)
             statestack\push FadeToBlack(1)
             return
         @currentindex += 1
         @textBox.text = ""
         @textBox.autoText = @dialog.dialogBits[@currentindex].text
+       
+        -- check some dialog functions
+        if @textBox.autoText == "[function:SLAPSCREEN]"
+            statestack\push SlapScreen(1)
+            @textBox.autoText = ""
+            @nextText()
+        if @textBox.autoText == "[function:HARDSLAPSCREEN]"
+            statestack\push SlapScreen(2)
+            @textBox.autoText = ""
+            @nextText()
+
+        @textBox.popIndex = @dialog.dialogBits[@currentindex].popType
         @textBox.autoTypeSpeed = @dialog.dialogBits[@currentindex].speed
         @currentcharacter = @dialog.dialogBits[@currentindex].character
         

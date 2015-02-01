@@ -11,10 +11,14 @@ class SimpleTextBox
         assert(@autoTypeSpeed > 0)
         @autoTypeCounter = 0
         @align = "left"
+        @popIndex = 1
 
     addLetter: (c) =>
         @text ..= c
-        -- soundmanager\playAnyType()
+        if @popIndex == 0
+            soundmanager\playAnyType()
+        else
+            soundmanager\playPop(@popIndex)
 
     pullback: () =>
         @text ..= "\n"
