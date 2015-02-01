@@ -61,7 +61,7 @@ class DialogState extends GameState
     -- attempt to get the next dialog, if none exit scene
     nextText:() =>
         nextBit = @dialog\getNextBit()
-        if nextBit()
+        if nextBit == nil
             return nil
 
         @textBox.text = ""
