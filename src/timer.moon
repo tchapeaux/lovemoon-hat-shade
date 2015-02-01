@@ -66,4 +66,3 @@ class CigTimer extends Timer
             -- butt (such comment wow)
             love.graphics.setColor(50, 50, 50, @fadinglvl)
             love.graphics.rectangle("fill", posx, max_cigh + posy, cigw, butth)
-

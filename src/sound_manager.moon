@@ -1,7 +1,7 @@
 export ^
--- plays sounds
+
 class SoundManager
-    -- type writter sounds
+    -- typewriter sounds
     @typeSounds: {
         love.audio.newSource("res/sfx/typewriter/edited/type01.ogg", "static")
         love.audio.newSource("res/sfx/typewriter/edited/type02.ogg", "static")
@@ -17,8 +17,8 @@ class SoundManager
         love.audio.newSource("res/sfx/typewriter/edited/bell01.ogg", "static")
         love.audio.newSource("res/sfx/typewriter/edited/bell02.ogg", "static")
     }
-    
-    -- censored word sound
+
+    -- censored words sound
     @bubbleSounds: {
         love.audio.newSource("res/sfx/bubbles/192501__murraysortz__bubbles-quick.ogg", "static")
         love.audio.newSource("res/sfx/bubbles/261597__kwahmah-02__bubbles2.ogg", "static")
@@ -31,17 +31,15 @@ class SoundManager
             soundArray[index]\rewind()
         else
             soundArray[index]\play()
-    
 
     playAnyType:()=>
         @@playOneOf(@@typeSounds)
-        
-        
+
     playAnyBell:()=>
         @@playOneOf(@@bellSounds)
-        
+
     playAnyPullBack:()=>
         @@playOneOf(@@pullbackSounds)
-    
+
     playAnyBubble:()=>
         @@playOneOf(@@bubbleSounds)

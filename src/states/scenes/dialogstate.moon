@@ -9,7 +9,7 @@ class DialogState extends GameState
         @currentindex = 0
         @currentcharacter = nil
 
-    update: (dt) =>    
+    update: (dt) =>
         if(@currentindex == 0)
             @nextText()
         @textBox\update(dt)
@@ -32,7 +32,7 @@ class DialogState extends GameState
 
         -- draw text box
         @textBox\draw(wScr(), hScr() - @dialog.spriteImg\getHeight() * scale)
-        
+
         -- draw  character if exists
         if(@currentcharacter)
             @currentcharacter\draw(@dialog.spriteImg\getHeight() * scale)
@@ -47,7 +47,7 @@ class DialogState extends GameState
     textinput: (char) =>
         --@textBox\textinput(char)
 
-    keypressed: (key) =>           
+    keypressed: (key) =>
         --@textBox\keypressed(key)
 
     keyreleased: (key) =>
@@ -57,19 +57,15 @@ class DialogState extends GameState
                 return
 
         @textBox\keyreleased(key)
-    
+
     -- attempt to get the next dialog, if none exit scene
     nextText:() =>
-        
-        if(@currentindex == #@dialog.dialogBits)
-            statestack\push FadeToBlack(1)
-            return
-        @currentindex += 1
+        nextBit = @dialog\getNextBit()
+        if nextBit()
+            return nil
+
         @textBox.text = ""
-        @textBox.autoText = @dialog.dialogBits[@currentindex].text
-        @textBox.autoTypeSpeed = @dialog.dialogBits[@currentindex].speed
-        @currentcharacter = @dialog.dialogBits[@currentindex].character
-        
-        if(@dialog.dialogBits[@currentindex].align)
-            @textBox.align = @dialog.dialogBits[@currentindex].align
-            
+        @textBox.autoText = nextBit.text
+        @textBox.autoTypeSpeed = nextBit.speed
+        @currentcharacter = nextBit.character
+        @textBox.align = nextBit.align

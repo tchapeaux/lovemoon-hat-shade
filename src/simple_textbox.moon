@@ -47,7 +47,6 @@ class SimpleTextBox
             when "return"
                 @autoTypeSpeed *= @autoTypeSpeedup
 
-
     textinput: (char) =>
         if #@autoText == 0
             @addLetter(char)
