@@ -4,7 +4,7 @@ class SimpleTextBox
 
     new: () =>
         @text = ""
-        @font = love.graphics.newFont "res/font/abril-fatface/AbrilFatface-Regular.otf", 23
+        @font = love.graphics.newFont "res/font/courier-prime/Courier Prime.ttf", 23
         @autoText = ""  -- text here will be automatically added to @text
         @autoTypeSpeed = 15  -- letter / s
         @autoTypeSpeedup = if not DEBUG then 3 else 10
