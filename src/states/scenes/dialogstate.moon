@@ -45,13 +45,7 @@ class DialogState extends GameState
         offset_y = hScr() - @dialog.spriteImg\getHeight() * scale
         return scale, offset_x, offset_y
 
-    textinput: (char) =>
-        --@textBox\textinput(char)
-
     keypressed: (key) =>
-        --@textBox\keypressed(key)
-
-    keyreleased: (key) =>
         if key == "escape"
             statestack\push(InGameMenu())
         if key == "return"
