@@ -1,7 +1,6 @@
 export ^
 
 class TypewriterTextBox
-
     new: () =>
         @text = ""
         @font = love.graphics.newFont "res/font/special-elite/SpecialElite.ttf", 36
@@ -64,7 +63,6 @@ class TypewriterTextBox
         switch key
             when "return"
                 @autoTypeSpeed /= @autoTypeSpeedup
-
 
     textinput: (char) =>
         if #@autoText == 0

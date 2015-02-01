@@ -67,16 +67,8 @@ class SceneState extends GameState
 
     keypressed: (key) =>
         @textBox\keypressed(key)
-        -- temporary clue highlighting detection (for DEBUG)
-        if DEBUG
-            for name, clue in pairs(@scene.clues)
-                if string.find(@textBox.text, name) != nil
-                    clue.isHighlighted = true
 
     keyreleased: (key) =>
-        -- TODO: handle player 1 writing
         switch key
             when "escape"
-                statestack\push FadeToBlack(1) -- TODO replace this with menu
-        -- @textBox\keyreleased(key)
-
+                statestack\push InGameMenu()

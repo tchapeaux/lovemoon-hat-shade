@@ -1,7 +1,7 @@
 export ^
--- plays sounds
+
 class SoundManager
-    -- type writter sounds
+    -- typewriter sounds
     @typeSounds: {
         love.audio.newSource("res/sfx/typewriter/edited/type01.ogg", "static")
         love.audio.newSource("res/sfx/typewriter/edited/type02.ogg", "static")
@@ -43,7 +43,6 @@ class SoundManager
             soundArray[index]\rewind()
         else
             soundArray[index]\play()
-    
     playPop:(index)=>
         -- for pop only : no rewind
         if not @@popSounds[index]\isPlaying()
@@ -57,13 +56,12 @@ class SoundManager
 
     playAnyType:()=>
         @@playOneOf(@@typeSounds)
-        
-        
+
     playAnyBell:()=>
         @@playOneOf(@@bellSounds)
-        
+
     playAnyPullBack:()=>
         @@playOneOf(@@pullbackSounds)
-    
+
     playAnyBubble:()=>
         @@playOneOf(@@bubbleSounds)

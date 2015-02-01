@@ -14,7 +14,7 @@ export lua_mod = (x, m) ->
 
 love.load = ->
     require "states/statestack"
-    require "states/mainmenu"
+    require "states/menus/mainmenu"
     require "sound_manager"
     statestack = StateStack()
     statestack\push(MainMenu())

@@ -2,6 +2,7 @@ export ^
 
 require "simple_textbox"
 require "states/transitions/slapscreen"
+require "states/menus/ingamemenu"
 
 class DialogState extends GameState
     new: (dialog) =>
@@ -10,7 +11,7 @@ class DialogState extends GameState
         @currentindex = 0
         @currentcharacter = nil
 
-    update: (dt) =>    
+    update: (dt) =>
         if(@currentindex == 0)
             @nextText()
         @textBox\update(dt)
@@ -33,7 +34,7 @@ class DialogState extends GameState
 
         -- draw text box
         @textBox\draw(wScr(), hScr() - @dialog.spriteImg\getHeight() * scale)
-        
+
         -- draw  character if exists
         if(@currentcharacter)
             @currentcharacter\draw(@dialog.spriteImg\getHeight() * scale)
@@ -45,13 +46,9 @@ class DialogState extends GameState
         offset_y = hScr() - @dialog.spriteImg\getHeight() * scale
         return scale, offset_x, offset_y
 
-    textinput: (char) =>
-        --@textBox\textinput(char)
-
-    keypressed: (key) =>           
-        --@textBox\keypressed(key)
-
-    keyreleased: (key) =>
+    keypressed: (key) =>
+        if key == "escape"
+            statestack\push(InGameMenu())
         if key == "return"
             if #@textBox.autoText == 0
                 @nextText()
@@ -60,31 +57,34 @@ class DialogState extends GameState
             @currentindex == #@dialog.dialogBits
 
         @textBox\keyreleased(key)
-    
+
     -- attempt to get the next dialog, if none exit scene
     nextText:() =>
         
         if(@currentindex >= #@dialog.dialogBits)
             statestack\push FadeToBlack(1)
             return
+
         @currentindex += 1
+        nextBit = @dialog.dialogBits[@currentindex]
+
         @textBox.text = ""
-        @textBox.autoText = @dialog.dialogBits[@currentindex].text
+        @textBox.autoText = nextBit.text
        
         -- check some dialog functions
         if @textBox.autoText == "[function:SLAPSCREEN]"
             statestack\push SlapScreen(1)
             @textBox.autoText = ""
             @nextText()
+            return
         if @textBox.autoText == "[function:HARDSLAPSCREEN]"
             statestack\push SlapScreen(2)
             @textBox.autoText = ""
             @nextText()
+            return
 
-        @textBox.popIndex = @dialog.dialogBits[@currentindex].popType
-        @textBox.autoTypeSpeed = @dialog.dialogBits[@currentindex].speed
-        @currentcharacter = @dialog.dialogBits[@currentindex].character
-        
-        if(@dialog.dialogBits[@currentindex].align)
-            @textBox.align = @dialog.dialogBits[@currentindex].align
-            
+        @textBox.popIndex = nextBit.popType
+        @textBox.autoTypeSpeed = nextBit.speed
+        @currentcharacter = nextBit.character
+        if(nextBit.align)
+            @textBox.align = nextBit.align
