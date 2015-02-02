@@ -1,5 +1,6 @@
 export ^
 
+require "ingame_helper"
 require "typewriter_textbox"
 require "timer"
 
@@ -8,6 +9,7 @@ class SceneState extends GameState
         @scene = scene
         @textBox = TypewriterTextBox()
         @timer = Timer()
+        @helperbox = InGameHelper("Describe the highlithed item.\nHurry, but don't use too precise words!")
 
     update: (dt) =>
         @textBox\update(dt)
@@ -46,6 +48,10 @@ class SceneState extends GameState
         marginxcig = (20 * scale) + (5 * scale)
         marginycig = 5 * scale
         @timer\draw(offset_x + wScr() - marginxcig, offset_y + marginycig, scale)
+        
+        
+        if(@timer.started)
+            @helperbox\draw(offset_x + wScr() - marginxcig*2, offset_y + marginycig, scale)
 
     -- for subclasses
     draw_below: =>

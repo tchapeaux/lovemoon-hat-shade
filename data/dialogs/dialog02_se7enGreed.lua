@@ -23,7 +23,7 @@ VicHatshade_Character.lastName = "Vic"
 
 local cop_Sprite = CharSprite()
 cop_Sprite.age = 45
-cop_Sprite.imgPath = "res/characters/cop.png"
+cop_Sprite.imgPath = "res/characters/flic_small.png"
 cop_Sprite.spriteImg = love.graphics.newImage(cop_Sprite.imgPath)
 cop_Sprite.spritename = "BobbySmith"
 
