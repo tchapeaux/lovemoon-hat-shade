@@ -35,6 +35,81 @@ class Timer
 
     draw: (posx, posy, scale) =>
 
+class MatchTimer extends Timer
+    new:()=>
+        super()
+        @matchstate1 = love.graphics.newImage("res/ui/edited/match1.png")
+        @matchstate2 = love.graphics.newImage("res/ui/edited/match22.png")
+        @matchstate3 = love.graphics.newImage("res/ui/edited/match3.png")
+        
+        @fireanim = {
+            love.graphics.newImage("res/ui/edited/centerfire.png")
+            love.graphics.newImage("res/ui/edited/leftfire.png")
+            love.graphics.newImage("res/ui/edited/rightfire.png")
+        }
+        
+        @currentanimindex = 1
+        
+        -- animation speed : 
+        @fireanimspeed = 30
+        
+    update:(dt) =>
+        super(dt)
+        if @currentanimindex == #@fireanim
+            @currentanimindex = 1
+        else
+            @currentanimindex += 1
+        
+    draw: (posx, posy, scale) =>
+        if @started or @fadeOut
+        
+        
+            desired_width = wScr() * 0.05
+            scale = desired_width / @matchstate1\getWidth()
+            
+            ratio = @elapsedTime / @duration
+            -- ratio = 0
+            img_width = @matchstate1\getWidth()-- * scale
+            img_height = @matchstate1\getHeight()-- * scale
+            
+            fire_height = @fireanim[1]\getHeight()
+            fire_center_y = 20
+            max_y_fire = img_height - fire_height - fire_center_y
+            
+            
+            love.graphics.translate(posx - (img_width* scale), posy)
+            love.graphics.scale(scale)
+            love.graphics.setColor(255, 255, 255, @fadinglvl)
+            
+            if not @fadeOut
+            
+                a = @matchstate1\getWidth()
+                b = @matchstate1\getHeight()
+                quadTop = love.graphics.newQuad(0, 0, a, max_y_fire * ratio + fire_height - fire_center_y, a, b)
+                quadBottom = love.graphics.newQuad(0, max_y_fire * ratio + fire_height - fire_center_y, a, b, a, b)
+                
+                -- love.graphics.draw(@matchstate1, 0, 0)
+                love.graphics.draw(@matchstate2, quadTop, 0, 0)
+                love.graphics.draw(@matchstate1, quadBottom, 0, max_y_fire * ratio + fire_height - fire_center_y)
+            else
+                love.graphics.draw(@matchstate3, 0, 0)
+            
+            love.graphics.draw(@fireanim[@currentanimindex], 0, max_y_fire * ratio)
+            -- if(ratio <= 0.5)
+                -- love.graphics.draw(@matchstate1, 0, 0)
+                -- love.graphics.draw(@fireanim[@currentanimindex], 0, 0)
+            -- else if (ratio <= 0.8)
+                -- love.graphics.draw(@matchstate2, 0, 0)
+                -- love.graphics.draw(@fireanim[@currentanimindex], 0, img_height * 0.5)
+            -- else
+                -- love.graphics.draw(@matchstate3, 0, 0)
+                -- love.graphics.draw(@fireanim[@currentanimindex], 0, img_height * 0.99)
+                
+            
+            
+            love.graphics.reset()
+            
+
 class CigTimer extends Timer
     draw: (posx, posy, scale) =>
         if @started or @fadeOut

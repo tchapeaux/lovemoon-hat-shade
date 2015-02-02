@@ -8,6 +8,8 @@ class InGameMenu extends GameState
     draw: =>
         @previousState()\draw()
 
+        love.graphics.reset()
+
         love.graphics.setColor(0, 0, 0, 220)
         love.graphics.rectangle("fill", 0, 0, wScr(), hScr())
 

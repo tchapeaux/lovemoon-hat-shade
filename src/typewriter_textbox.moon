@@ -9,15 +9,18 @@ class TypewriterTextBox
         @autoTypeSpeedup = if not DEBUG then 3 else 10
         assert(@autoTypeSpeed > 0)
         @autoTypeCounter = 0
+        @mute = false
 
     addLetter: (c) =>
         @text ..= c
-        soundmanager\playAnyType()
+        if not @mute
+            soundmanager\playAnyType()
         -- @@playType()
 
     pullback: () =>
         @text ..= "\n> "
-        soundmanager\playAnyPullBack()
+        if not @mute
+            soundmanager\playAnyPullBack()
         -- @@playPullBack()
 
     removeLetter: =>
@@ -51,7 +54,8 @@ class TypewriterTextBox
             when "backspace"
                 if #@autoText == 0
                     @removeLetter()
-                    soundmanager\playAnyType()
+                    if not @mute
+                        soundmanager\playAnyType()
                     -- @@playType()
             when "return"
                 if #@autoText == 0

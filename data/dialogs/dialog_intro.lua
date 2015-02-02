@@ -37,7 +37,7 @@ cop_Character.lastName = "Smith"
 --*******************
 
 local imgFolder = "res/scenes/outside_snow/"
-dialog.spriteImg = love.graphics.newImage(imgFolder .. "décor1b.png")
+dialog.spriteImg = love.graphics.newImage(imgFolder .. "decor1b.png")
 
 
 --*******************

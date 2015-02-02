@@ -9,8 +9,8 @@ class SceneState extends GameState
         @scene = scene
         @textBox = TypewriterTextBox()
         @timer = Timer()
-        @helperbox = InGameHelper("Describe the highlithed item.\nHurry, but don't use too precise words!")
-
+        @helperbox = nil
+        @portraitplayer = nil
     update: (dt) =>
         @textBox\update(dt)
         @timer\update(dt)
@@ -41,17 +41,34 @@ class SceneState extends GameState
 
         love.graphics.reset()
 
+        -- portrait picture
+        -- the portrait is a square, so we try to define the max height available and scale the portrait
+        max_height_textbox = hScr() - @scene.spriteImg\getHeight() * scale
+        max_width_textbox = wScr()
+        
+        if @portraitplayer
+            -- get portrait scale according to the actuel height of the picture
+            scaleportrait = max_height_textbox / @portraitplayer\getHeight()
+            max_width_textbox -= @portraitplayer\getWidth() * scaleportrait
+            -- apply scale and draw
+            love.graphics.translate(max_width_textbox, 0)
+            love.graphics.scale(scaleportrait)
+            -- we place it right after the textbox
+            love.graphics.draw(@portraitplayer, 0, 0)
+            love.graphics.reset()
+        
+        
         -- draw text box
-        @textBox\draw(wScr(), hScr() - @scene.spriteImg\getHeight() * scale)
+        @textBox\draw(max_width_textbox, max_height_textbox)
 
         -- draw timer
-        marginxcig = (20 * scale) + (5 * scale)
-        marginycig = 5 * scale
+        marginxcig = (0.02 * hScr()) + (0.05 * hScr())
+        marginycig = hScr() * 0.05
         @timer\draw(offset_x + wScr() - marginxcig, offset_y + marginycig, scale)
         
         
-        if(@timer.started)
-            @helperbox\draw(offset_x + wScr() - marginxcig*2, offset_y + marginycig, scale)
+        if(@timer.started and @helperbox)
+            @helperbox\draw(offset_x + wScr() - marginxcig*2, offset_y + marginycig)
 
     -- for subclasses
     draw_below: =>

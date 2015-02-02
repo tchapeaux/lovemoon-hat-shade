@@ -7,14 +7,19 @@ require "states/transitions/fadetoblack"
 class TyperSceneState extends SceneState
     new: (scene) =>
         super(scene)
-        @timer = CigTimer()
+        -- @timer = CigTimer()
+        @timer = MatchTimer()
         @textBox.autoText = scene.startupAutoText
         @highlighted_clues = {}
         @highlighted_textLengthStart = {} -- length at which corresponding clue was highlighted
         @highlighted_textLengthStop = {} -- length at which corresponding clue was de-highlighted
         @currentHighlight = 0 -- index of @highlighted_clues or 0
         @highlightTime = if DEBUG then 10 else 60 -- number of seconds a clue stays highlighted
-
+        
+        
+        @portraitplayer = love.graphics.newImage("res/characters/portraits/detective.png")
+        @helperbox = InGameHelper("Describe the highlithed item.\nHurry, but don't use overly specific words!")
+        
         @numberOfClues = 3
         -- pick highlighted items
         cluesCopy = {}
@@ -28,6 +33,7 @@ class TyperSceneState extends SceneState
     update: (dt) =>
         super(dt)
         if not @timer.started
+            -- highlight items
             assert @currentHighlight >= 0 and @currentHighlight <= #@highlighted_clues, "Invalid @currentHighlight state #{@currentHighlight} our of #{#@highlighted_clues}"
 
             if @currentHighlight == #@highlighted_clues and #@textBox.autoText == 0
@@ -38,7 +44,10 @@ class TyperSceneState extends SceneState
                 if currentClue.isHighlighted
                     @highlighted_textLengthStop[@currentHighlight] = #@textBox.text
                     currentClue.isHighlighted = false
-
+            
+            -- end highlight
+            
+            -- next clue
             if @next_clue_conditions()
                 @currentHighlight += 1
                 clueName = @highlighted_clues[@currentHighlight]
@@ -57,9 +66,9 @@ class TyperSceneState extends SceneState
                 word = forbidden[i]
                 lowerendstr = string.lower(@textBox.text\sub(#(@textBox.text) - #word +1))
                 if lowerendstr == word
+                    -- censor it and play bubble sound
                     @textBox.text = @textBox.text\sub(0, #(@textBox.text) - #word) .. "*hic*"
                     soundmanager\playAnyBubble()
-                --index = string.find(textSinceLastClue, 
         
     draw: =>
         super()

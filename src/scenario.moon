@@ -23,7 +23,8 @@ class Scenario
 
     getDefaultScenario:() ->
         scenario = Scenario()
-        dialog1 = require "data/dialogs/dialog02_se7enGreed"
+        dialog1 = require "data/dialogs/dialog_intro"
+        -- scene1 = require "data/crimescenes/bikeroom"
         scene1 = require "data/crimescenes/scene02_se7enGreed"
         -- scenario\pushScene (dialog1)
         scenario\pushScene (scene1)
