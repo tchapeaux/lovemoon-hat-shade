@@ -23,8 +23,8 @@ class Scenario
 
     @getDefaultScenario:() ->
         scenario = Scenario()
-        dialog1 = require "data/dialogs/dialog02_se7enGreed"
-        scene1 = require "data/crimescenes/scene02_se7enGreed"
+        dialog1 = require "data/dialogs/dialog_intro"
+        scene1 = require "data/crimescenes/bikeroom"
         scenario\pushScene(dialog1)
         scenario\pushScene(scene1)
         if #scene1.clues > 1

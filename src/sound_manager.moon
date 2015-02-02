@@ -21,8 +21,8 @@ class SoundManager
 
     -- generic slap sound
     @slapSounds = {
-        love.audio.newSource("res/sfx/slap/Slap.ogg", "static")
-        love.audio.newSource("res/sfx/slap/door-shut.ogg", "static")
+        love.audio.newSource("res/sfx/slap/117347__stereostereo__10-slap-real.ogg", "static")
+        love.audio.newSource("res/sfx/slap/73535__macinino__door-slamming_slowed_faded.ogg", "static")
     }
 
     -- censored word sound
@@ -31,10 +31,10 @@ class SoundManager
         love.audio.newSource("res/sfx/bubbles/261597__kwahmah-02__bubbles2.ogg", "static")
         love.audio.newSource("res/sfx/bubbles/104946__glaneur-de-sons__bubble-7.ogg", "static")
     }
-    
+
     @popSounds = {
-        love.audio.newSource("res/sfx/dialog/pop.ogg", "static")
-        love.audio.newSource("res/sfx/dialog/pop2.ogg", "static")
+        love.audio.newSource("res/sfx/dialog/244654__greenvwbeetle__pop-2.ogg", "static")
+        love.audio.newSource("res/sfx/dialog/244654__greenvwbeetle__pop-2_slow.ogg", "static")
     }
 
     @playOneOf: (soundArray) =>
