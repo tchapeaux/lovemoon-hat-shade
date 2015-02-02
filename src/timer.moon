@@ -51,14 +51,20 @@ class MatchTimer extends Timer
         @currentanimindex = 1
         
         -- animation speed : 
-        @fireanimspeed = 30
+        @fireanimcount = 0
+        @fireanimspeed = 0.01
         
     update:(dt) =>
         super(dt)
-        if @currentanimindex == #@fireanim
-            @currentanimindex = 1
-        else
+        @fireanimcount += dt
+        print @fireanimcount
+        if @fireanimcount >= @fireanimspeed
             @currentanimindex += 1
+            @fireanimcount = 0
+        
+        if @currentanimindex > #@fireanim
+            @currentanimindex = 1
+            
         
     draw: (posx, posy, scale) =>
         if @started or @fadeOut
