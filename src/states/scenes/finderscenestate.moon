@@ -12,7 +12,7 @@ class FinderSceneState extends SceneState
         @timer = MatchTimer()
         -- some changes to makes it simpler
         @textBox.font = love.graphics.newFont "res/font/courier-prime/Courier Prime.ttf", 23
-        @textBox.autoText = string.gsub(fulltext, "\n>", "\n")
+        @textBox.autoText = string.gsub(fulltext, "\n>", "\n ")
         @textBox.mute = true
         
         @clueToFind = 1 -- index of @clues_to_find

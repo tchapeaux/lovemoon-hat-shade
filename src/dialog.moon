@@ -2,7 +2,7 @@ export ^
 
 class DialogBit
 
-    new:(@popType, @character, @text, @speed, @align="left", @music=nil) =>
+    new:(@popType, @character, @text, @speed, @align="left", @music=nil, @autopass=false) =>
 
 
 class Dialog

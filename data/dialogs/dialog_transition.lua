@@ -32,7 +32,7 @@ dialog.spriteImg = love.graphics.newImage(imgFolder .. "decor1b.png")
 -- the textes and the character name are defined by in a DialogBit
 dialog.dialogBits = {
     DialogBit(2, VicHatshade_Character, "Detective:\nGood. Or maybe not, actually I have no idea, for we don't have a scoring system yet.", 20, "left", "none"),
-    DialogBit(2, VicHatshade_Character, "Detective:\nThis game doesn't have any end yet either. 48 hours, it's rough!", 20, "left"),
+    DialogBit(2, VicHatshade_Character, "Detective:\nThis game doesn't have any end yet either. 48 hours, that's rough!", 20, "left"),
     DialogBit(2, VicHatshade_Character, "Detective:\nLet's move to one last crimescene. A more serious one. But after that, it's back to the menu, boys.", 20, "left", "poker")
     --DialogBit(2, VicHatshade_Character, "[function:WAIT]", 20, "left", "poker")
 }

@@ -2,6 +2,7 @@ export ^
 
 require "states/game"
 require "states/menus/optionsmenu"
+require "states/dialogs/dialogchoice"
 
 class MainMenu extends GameState
     new: =>
@@ -56,4 +57,8 @@ class MainMenu extends GameState
             when 2
                 statestack\push(OptionsMenu())
             when 3
-                love.event.quit()
+                onYes = () =>
+                    love.event.quit()
+                onNo = () =>
+                    return
+                statestack\push(DialogChoice("Are you sure?", {"Yes", "No"}, {onYes, onNo}, 2))

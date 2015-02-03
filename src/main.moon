@@ -1,12 +1,15 @@
 io.stdout\setvbuf'no'
 
-export DEBUG = true
+export DEBUG = false
 
 export statestack
 export soundmanager
 
 export wScr, hScr
 wScr, hScr = love.window.getWidth, love.window.getHeight
+
+export startsWith = (str,start) ->
+   return string.sub(str,1,string.len(start))==start
 
 export lua_mod = (x, m) ->
     -- returns a modulo of x usable with 1-based table

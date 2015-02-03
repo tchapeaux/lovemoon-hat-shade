@@ -1,6 +1,6 @@
 export ^
 
-require "states/scenes/dialogstate"
+require "states/dialogs/dialogstate"
 require "states/scenes/typerscenestate"
 require "states/scenes/finderscenestate"
 require "states/transitions/fadefromblack"
