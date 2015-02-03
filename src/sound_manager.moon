@@ -1,6 +1,11 @@
 export ^
 
 class SoundManager
+    new:() =>
+        @currentMusic = nil
+        @bgm= {}
+        @bgm.barAmbiance = love.audio.newSource("res/bgm/Jazz_Street_Trio_-_caught_sleeping.ogg", "stream")
+        @bgm.quietPlace = love.audio.newSource("res/bgm/WwoollfF_-_Saxy_Kenny__WwoollfF__cm_.ogg", "stream")
     -- typewriter sounds
     @typeSounds: {
         love.audio.newSource("res/sfx/typewriter/edited/type01.ogg", "static")
@@ -20,7 +25,7 @@ class SoundManager
 
 
     -- generic slap sound
-    @slapSounds = {
+    @slapSounds: {
         love.audio.newSource("res/sfx/slap/117347__stereostereo__10-slap-real.ogg", "static")
         love.audio.newSource("res/sfx/slap/73535__macinino__door-slamming_slowed_faded.ogg", "static")
     }
@@ -32,7 +37,7 @@ class SoundManager
         love.audio.newSource("res/sfx/bubbles/104946__glaneur-de-sons__bubble-7.ogg", "static")
     }
 
-    @popSounds = {
+    @popSounds: {
         love.audio.newSource("res/sfx/dialog/244654__greenvwbeetle__pop-2.ogg", "static")
         love.audio.newSource("res/sfx/dialog/244654__greenvwbeetle__pop-2_slow.ogg", "static")
     }
@@ -65,3 +70,17 @@ class SoundManager
 
     playAnyBubble:()=>
         @@playOneOf(@@bubbleSounds)
+
+
+
+
+    
+    playMusic:(name)=>
+        @stopMusic()
+        if @bgm[name]
+            @currentMusic=@bgm[name]
+            @currentMusic\play()
+    
+    stopMusic:() =>
+        if @currentMusic
+            @currentMusic\stop()

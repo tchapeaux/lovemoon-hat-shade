@@ -56,14 +56,14 @@ class MatchTimer extends Timer
         
     update:(dt) =>
         super(dt)
-        @fireanimcount += dt
-        print @fireanimcount
-        if @fireanimcount >= @fireanimspeed
-            @currentanimindex += 1
-            @fireanimcount = 0
-        
-        if @currentanimindex > #@fireanim
-            @currentanimindex = 1
+        if @started or @fadeOut
+            @fireanimcount += dt
+            if @fireanimcount >= @fireanimspeed
+                @currentanimindex += 1
+                @fireanimcount = 0
+            
+            if @currentanimindex > #@fireanim
+                @currentanimindex = 1
             
         
     draw: (posx, posy, scale) =>

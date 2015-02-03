@@ -15,8 +15,9 @@ scene.spriteImg = love.graphics.newImage(sceneFolder .. "bikeroom_black.png")
 --       TEXT
 --*******************
 
-scene.startupAutoText = [[This room was the room of a man without order.
-This reminded me of ]]
+scene.startupAutoText = [[This room was the lair of a man without order.
+It was hard to focus on anything on the spot, this room really was a mess. 
+Waiting for illumination, I started to describe it. ]]
 
 --*******************
 --       CLUES
@@ -27,7 +28,7 @@ local clue
 clue = Clue()
 clue.name = "books"
 clue.highlightImg = love.graphics.newImage(sceneFolder .. "bikeroom_books.png")
-clue.forbiddenWords = {"books"}
+clue.forbiddenWords = {"book"}
 scene:addClue(clue)
 
 clue = Clue()

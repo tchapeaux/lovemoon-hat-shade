@@ -8,8 +8,8 @@ require "states/transitions/fadefrom"
 class FinderSceneState extends SceneState
     new: (scene, fulltext, @clues_to_find, @startIndices, @stopIndices) =>
         super(scene)
-        @timer = CigTimer() -- should be another?
-        
+        -- @timer = CigTimer() -- should be another?
+        @timer = MatchTimer()
         -- some changes to makes it simpler
         @textBox.font = love.graphics.newFont "res/font/courier-prime/Courier Prime.ttf", 23
         @textBox.autoText = string.gsub(fulltext, "\n>", "\n")

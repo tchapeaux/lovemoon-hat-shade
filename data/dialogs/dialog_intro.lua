@@ -23,7 +23,7 @@ VicHatshade_Character.lastName = "Vic"
 
 local cop_Sprite = CharSprite()
 cop_Sprite.age = 45
-cop_Sprite.imgPath = "res/characters/flic_small.png"
+cop_Sprite.imgPath = "res/characters/cop.png"
 cop_Sprite.spriteImg = love.graphics.newImage(cop_Sprite.imgPath)
 cop_Sprite.spritename = "BobbySmith"
 
@@ -45,7 +45,7 @@ dialog.spriteImg = love.graphics.newImage(imgFolder .. "decor1b.png")
 --*******************
 -- the textes and the character name are defined by in a DialogBit
 dialog.dialogBits = {
-    DialogBit(0, nil, "\n7:56\nEntrance of Vic Hatshade's Office", 5, "center"),
+    DialogBit(0, nil, "\n7:56 AM\nEntrance of Vic Hatshade's Office", 5, "center", "none"),
     DialogBit(1, nil, "Jim Norrington :\nIt's my first day as the assistant of the famous detective Vic Hatshade!\nI wonder what will be my first case...", 20, "left"),
     DialogBit(1, nil, "[function:HARDSLAPSCREEN]", 0),
     DialogBit(2, nil, "Voice :\nThis administrative bullshit is the reason why I will never join your faggot unit!", 30),
@@ -55,9 +55,9 @@ dialog.dialogBits = {
     DialogBit(1, nil, "A police officer just passed me by... wow, she looked pissed.", 20),
     DialogBit(2, VicHatshade_Character, "Vic Shade:\nOh hey buddy. Can I help you?", 15),
     DialogBit(1, VicHatshade_Character, "Jim Norrington:\nH...hi! It's me!", 15),
-    DialogBit(2, VicHatshade_Character, "......................", 1),
+    DialogBit(2, VicHatshade_Character, ".....", 1),
     DialogBit(1, VicHatshade_Character, "Jim Norrington:\nJ...Jim ! Jim Norrington!", 15),
-    DialogBit(2, VicHatshade_Character, "......................", 1),
+    DialogBit(2, VicHatshade_Character, ".....", 1),
     DialogBit(2, VicHatshade_Character, "Vic Shade:\nThe intern?", 15),
     DialogBit(1, VicHatshade_Character, "Jim Norrington:\nYes! Well, more like assistant, for what I recall from our previous...", 15),
     DialogBit(2, VicHatshade_Character, "Vic Shade:\nOh yeah, that's right, I needed someone for the previous case...", 15),
