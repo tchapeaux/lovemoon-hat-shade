@@ -4,7 +4,7 @@ class SoundManager
     new:() =>
         @currentMusic = nil
         @bgm= {}
-        @bgm.barAmbiance = love.audio.newSource("res/bgm/Jazz_Street_Trio_-_caught_sleeping.ogg", "stream")
+        -- @bgm.barAmbiance = love.audio.newSource("res/bgm/Jazz_Street_Trio_-_caught_sleeping.ogg", "stream")
         @bgm.quietPlace = love.audio.newSource("res/bgm/WwoollfF_-_Saxy_Kenny__WwoollfF__cm_.ogg", "stream")
         @bgm.poker  = love.audio.newSource("res/bgm/Jahzzar_-_Poker.ogg", "stream")
     -- typewriter sounds
