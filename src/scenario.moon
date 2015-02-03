@@ -27,11 +27,14 @@ class Scenario
         dialog2 = require "data/dialogs/dialog_intro"
         dialog3 = require "data/dialogs/dialog_tuto"
         scene1 = require "data/crimescenes/bikeroom"
-        -- scene1 = require "data/crimescenes/scene02_se7enGreed"
-        scenario\pushScene (dialog1)
+        dialog4 = require "data/dialogs/dialog_transition"
+        scene2 = require "data/crimescenes/scene02_se7enGreed"
+        -- scenario\pushScene (dialog1)
         scenario\pushScene (dialog2)
         scenario\pushScene (dialog3)
         scenario\pushScene (scene1)
+        scenario\pushScene (dialog4)
+        scenario\pushScene (scene2)
         if(#(scene1.clues) > 1)
             @max_clues += #(scene1.clues) -1
         return scenario
