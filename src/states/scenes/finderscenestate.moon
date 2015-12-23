@@ -14,16 +14,16 @@ class FinderSceneState extends SceneState
         @textBox.font = love.graphics.newFont "res/font/courier-prime/Courier Prime.ttf", 23
         @textBox.autoText = string.gsub(fulltext, "\n>", "\n ")
         @textBox.mute = true
-        
+
         @clueToFind = 1 -- index of @clues_to_find
         @clueAtPointer = nil -- name of the clue
         @clueSelected = nil -- name of the clue
         @cluesFound = {}
         @foundHighlights = {}
-        
+
         @portraitplayer = love.graphics.newImage("res/characters/portraits/assistant.png")
         @helperbox = InGameHelper("Try to find the item described by HatShade.\nClick on it before it's too late!")
-        
+
         -- sanity checks
         assert #@clues_to_find == #@startIndices and #@startIndices == #@stopIndices,
             "invalid parameters: #{#@clues_to_find} - #{#@startIndices} - #{#@stopIndices}"
@@ -92,5 +92,5 @@ class FinderSceneState extends SceneState
 
     mousepressed: (x, y, button) =>
         switch button
-            when "l"
+            when 1
                 @clueSelected = @clueAtPointer

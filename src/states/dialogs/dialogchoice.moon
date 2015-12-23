@@ -5,7 +5,7 @@ require "states/menus/ingamemenu"
 class DialogChoice extends GameState
     new: (@question, @choicesText, @functionChoices, @currentIndex=1, @dialogstate = nil) =>
         @font = love.graphics.newFont "res/font/special-elite/SpecialElite.ttf", 36
-        
+
     previousState: =>
         statestack\peek(1)
 
@@ -16,7 +16,7 @@ class DialogChoice extends GameState
 
     draw: =>
         @previousState()\draw()
-        
+
         question_h = hScr() * 0.2
         each_block_h = hScr() * 0.7 / #@choicesText
         each_block_w = wScr() * 0.7
@@ -26,16 +26,16 @@ class DialogChoice extends GameState
         global_padding = each_block_h * 0.1
 
         love.graphics.setFont(@font)
-        lineWidth, numberOfLines = @font\getWrap(@question .. ' ', each_block_w)
-        textHeight = @font\getHeight() * numberOfLines
-        
+        lineWidth, linesTable = @font\getWrap(@question .. ' ', each_block_w)
+        textHeight = @font\getHeight() * #linesTable
+
         love.graphics.translate(global_margin_x, global_margin_y)
         love.graphics.setColor(255, 255, 255)
         love.graphics.rectangle("fill", 0, 0, each_block_w, question_h)
-        
+
         love.graphics.setColor(150, 150, 150)
         love.graphics.printf(@question, global_padding, global_padding, each_block_w - global_padding*2, "center")
-        
+
         for i=1, #@choicesText
             current_y = global_margin_y * 2 * i + question_h * i
             love.graphics.reset()
@@ -45,12 +45,12 @@ class DialogChoice extends GameState
             else
                 love.graphics.setColor(255, 255, 255)
             love.graphics.rectangle("fill", 0, 0, each_block_w, question_h)
-            
+
             if @currentIndex == i
                 love.graphics.setColor(255, 255, 255)
             else
                 love.graphics.setColor(150, 150, 150)
-            
+
             love.graphics.printf(@choicesText[i], global_padding, global_padding, each_block_w - global_padding*2, "center")
 
     keypressed: (key) =>
@@ -60,8 +60,8 @@ class DialogChoice extends GameState
             @currentIndex = lua_mod(@currentIndex - 1, #@choicesText)
         else if key == "escape" or key == "return"
             @select()
-            
-            
+
+
     select:()=>
         @functionChoices[@currentIndex](@dialogstate)
         statestack\pop()

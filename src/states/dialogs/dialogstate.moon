@@ -16,7 +16,7 @@ class DialogState extends GameState
     update: (dt) =>
         if(@currentindex == 0)
             @nextText()
-            
+
         -- for fading in and out character
         if(@currentcharacter)
             @currentcharacter\update(dt)
@@ -24,7 +24,7 @@ class DialogState extends GameState
             @previouscharacter\update(dt)
             if not @previouscharacter\visible()
                 @previouscharacter = nil
-            
+
         -- check autopass of the current text
         @textBox\update(dt)
         if @textBox.autopass and #@textBox.autoText == 0
@@ -80,11 +80,11 @@ class DialogState extends GameState
         if(@currentindex >= #@dialog.dialogBits)
             statestack\push FadeToBlack(1)
             return
-        
+
         @currentindex += 1
         nextBit = @dialog.dialogBits[@currentindex]
-        
-        print nextBit.__class
+
+        -- print nextBit.__class
         if nextBit.__class == DialogChoice
             nextBit.dialogstate = self
             statestack\push(nextBit)
@@ -94,18 +94,18 @@ class DialogState extends GameState
         @textBox.autoText = nextBit.text
         if nextBit.music
             soundmanager\playMusic(nextBit.music)
-            
+
         @previouscharacter = @currentcharacter
         @currentcharacter = nextBit.character
-        
+
         if @currentcharacter != @previouscharacter
             if @previouscharacter
-                @previouscharacter\hide() 
+                @previouscharacter\hide()
             if @currentcharacter
                 @currentcharacter\show()
         else
             @previouscharacter = nil
-        
+
         -- check some dialog functions
         -- if @textBox.autoText == "[function:SLAPSCREEN]"
             -- statestack\push SlapScreen(1)
@@ -122,9 +122,9 @@ class DialogState extends GameState
             -- @textBox.autoText = ""
             -- @nextText()
             -- return
-        
 
-        
+
+
         @textBox.popIndex = nextBit.popType
         @textBox.autoTypeSpeed = nextBit.speed
         @textBox.autopass = nextBit.autopass

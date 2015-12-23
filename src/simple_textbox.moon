@@ -27,11 +27,11 @@ class SimpleTextBox
 
     draw: (w, h) =>
         love.graphics.setFont(@font)
-        lineWidth, numberOfLines = @font\getWrap(@text, w)
-        textHeight = @font\getHeight() * numberOfLines
+        lineWidth, linesTable = @font\getWrap(@text, w)
+        textHeight = @font\getHeight() * #linesTable
         love.graphics.setColor(150, 150, 150)
         love.graphics.printf(@text, 0, 0, w, @align)
-    
+
     processFunction: (functionCode) =>
         if functionCode == "[function:SLAPSCREEN]"
             statestack\push SlapScreen(1)
@@ -45,7 +45,7 @@ class SimpleTextBox
         else if startsWith(functionCode, "[function:TEXTSPEED(")
             indexarg = functionCode\sub(string.len("[function:TEXTSPEED(") + 1, string.find(functionCode, ")]") - 1)
             @autoTypeSpeed = tonumber(indexarg)
-    
+
     update: (dt) =>
         if #@autoText > 0
             wordFrequency = 1 / @autoTypeSpeed
@@ -64,7 +64,7 @@ class SimpleTextBox
                         @autoText = @autoText\sub(indexend + 1, -1)
                         return
                     -- else, it was just some bracket, why not
-                
+
                 @autoText = @autoText\sub(2, -1)
                 if letter == "\n"
                     @pullback()

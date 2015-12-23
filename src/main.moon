@@ -6,7 +6,7 @@ export statestack
 export soundmanager
 
 export wScr, hScr
-wScr, hScr = love.window.getWidth, love.window.getHeight
+wScr, hScr = love.graphics.getWidth, love.graphics.getHeight
 
 export startsWith = (str,start) ->
    return string.sub(str,1,string.len(start))==start

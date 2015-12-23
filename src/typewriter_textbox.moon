@@ -29,8 +29,8 @@ class TypewriterTextBox
 
     draw: (w, h) =>
         love.graphics.setFont(@font)
-        lineWidth, numberOfLines = @font\getWrap(@text .. ' ', w)
-        textHeight = @font\getHeight() * numberOfLines
+        lineWidth, linesTable = @font\getWrap(@text .. ' ', w)
+        textHeight = @font\getHeight() * #linesTable
         love.graphics.setColor(150, 150, 150)
         love.graphics.printf(@text, 0, h - textHeight, w, "left")
 
